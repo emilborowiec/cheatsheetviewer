@@ -1,0 +1,27 @@
+﻿<Window x:Class="PonderingProgrammer.QuickSheet.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PonderingProgrammer.QuickSheet"
+        xmlns:cs="clr-namespace:PonderingProgrammer.QuickSheet.CheatSheetPanel"
+        mc:Ignorable="d"
+        Title="QuickSheet" Height="450" Width="800"
+        WindowState="Maximized"
+        WindowStyle="None"
+        Icon="icon.ico">
+    
+    <Window.DataContext>
+        <local:MainWindowViewModel />
+    </Window.DataContext>
+    
+    <Window.InputBindings>
+        <KeyBinding Key="Escape" Command="{Binding ExitCommand}"></KeyBinding>
+        <KeyBinding Key="Left" Command="{Binding SwitchSheetCommand}" CommandParameter="left" />
+        <KeyBinding Key="Right" Command="{Binding SwitchSheetCommand}" CommandParameter="right" />
+    </Window.InputBindings>
+    
+    <Grid>
+        <cs:CheatSheetView DataContext="{Binding CheatSheetViewModel}" /> 
+    </Grid>
+</Window>
