@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using PonderingProgrammer.QuickSheet.Model;
@@ -10,6 +11,11 @@ namespace PonderingProgrammer.QuickSheet.CheatSheetPanel
         private static int GetLineCount(Cheat cheat)
         {
             return 1 + cheat.Entries.Count;
+        }
+
+        private static int GetWidth(Cheat cheat)
+        {
+            return Math.Max(cheat.Caption.Length, cheat.Entries.Max(e => e.Length));
         }
 
         public SectionContent(List<Cheat> cheats)
@@ -33,6 +39,11 @@ namespace PonderingProgrammer.QuickSheet.CheatSheetPanel
         public int GetLineCount()
         {
             return 1 + Cheats.Sum(GetLineCount);
+        }
+
+        public int GetWidth()
+        {
+            return Math.Max(Title.Length, Cheats.Max(GetWidth));
         }
 
     }

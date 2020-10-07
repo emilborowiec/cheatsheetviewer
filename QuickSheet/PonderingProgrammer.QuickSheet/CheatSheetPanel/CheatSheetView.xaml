@@ -16,6 +16,9 @@
         <b:EventTrigger EventName="SizeChanged">
             <b:CallMethodAction TargetObject="{Binding}" MethodName="NotifyFontSizeChanged" />
         </b:EventTrigger>
+        <b:EventTrigger EventName="SizeChanged">
+            <b:CallMethodAction TargetObject="{Binding}" MethodName="NotifyFontSizeChanged" />
+        </b:EventTrigger>
     </b:Interaction.Triggers>
     
     <UserControl.Resources>
