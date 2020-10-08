@@ -53,7 +53,23 @@ namespace PonderingProgrammer.QuickSheet.CheatSheetPanel
         }
 
         public List<SectionContent> Sections { get; set; }
-        public int TitleFontSize => (int) (CalculateBaseFontSize() * 1.5);
+
+        public int TitleFontSize
+        {
+            get
+            {
+                if (Application.Current.MainWindow == null) return DefaultFontSize;
+                var h = (int) ((Panel) Application.Current.MainWindow.Content).ActualHeight;
+                var size = 20;
+                if (h >= 720) size = 24;
+                if (h >= 1080) size = 28;
+                if (h >= 1440) size = 32;
+                if (h >= 2160) size = MaxFontSize;
+                if (h >= 4320) size = MaxFontSize + 4;
+                return DefaultFontSize + size;
+            }
+        }
+        
         public int SectionFontSize => (int) (CalculateBaseFontSize() * 1.2);
         public int CaptionFontSize => (int) (CalculateBaseFontSize() * 1.1);
         public int EntryFontSize => CalculateBaseFontSize();
