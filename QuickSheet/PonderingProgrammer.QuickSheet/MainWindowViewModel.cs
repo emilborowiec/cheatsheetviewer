@@ -25,6 +25,7 @@ namespace PonderingProgrammer.QuickSheet
             _cheatSheetViewModel = new CheatSheetViewModel();
             SwitchSheetCommand = new DelegateCommand<string>(SwitchSheet);
             ExitCommand = new DelegateCommand(Exit);
+            ReloadSheetsCommand = new DelegateCommand(ReloadCheatSheets);
             ReloadCheatSheets();
         }
 
@@ -35,8 +36,8 @@ namespace PonderingProgrammer.QuickSheet
 
 
         public DelegateCommand<string> SwitchSheetCommand { get; }
-        
         public DelegateCommand ExitCommand { get; } 
+        public DelegateCommand ReloadSheetsCommand { get; }
 
         public CheatSheet CurrentCheatSheet => CurrentIndex == -1 ? null : _cheatSheets[CurrentIndex];
 
