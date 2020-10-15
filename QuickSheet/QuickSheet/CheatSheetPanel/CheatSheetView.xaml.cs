@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace PonderingProgrammer.QuickSheet.CheatSheetPanel
+namespace QuickSheet.CheatSheetPanel
 {
     public partial class CheatSheetView : UserControl
     {

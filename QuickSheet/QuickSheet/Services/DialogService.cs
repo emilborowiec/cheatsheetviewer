@@ -1,6 +1,6 @@
-﻿using PonderingProgrammer.QuickSheet.Notifications;
+﻿using QuickSheet.Notifications;
 
-namespace PonderingProgrammer.QuickSheet.Services
+namespace QuickSheet.Services
 {
     public static class DialogService
     {

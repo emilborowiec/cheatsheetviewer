@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace PonderingProgrammer.QuickSheet.Notifications
+namespace QuickSheet.Notifications
 {
     public class DialogViewModel
     {

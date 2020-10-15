@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PonderingProgrammer.QuickSheet.Model
+namespace QuickSheet.Model
 {
     public class CheatSheet
     {

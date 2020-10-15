@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using PonderingProgrammer.QuickSheet.Model;
+using QuickSheet.Model;
 
-namespace PonderingProgrammer.QuickSheet.CheatSheetPanel
+namespace QuickSheet.CheatSheetPanel
 {
     public class SectionContent
     {

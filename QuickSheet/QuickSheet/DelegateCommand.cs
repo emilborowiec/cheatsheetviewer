@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace PonderingProgrammer.QuickSheet
+namespace QuickSheet
 {
     public class DelegateCommand : ICommand
     {

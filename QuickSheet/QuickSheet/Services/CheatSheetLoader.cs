@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using PonderingProgrammer.QuickSheet.Model;
+using QuickSheet.Model;
 
-namespace PonderingProgrammer.QuickSheet.Services
+namespace QuickSheet.Services
 {
     public static class CheatSheetLoader
     {

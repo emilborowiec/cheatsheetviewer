@@ -1,4 +1,4 @@
-﻿namespace PonderingProgrammer.QuickSheet.Services
+﻿namespace QuickSheet.Services
 {
     public class Result<T>
     {

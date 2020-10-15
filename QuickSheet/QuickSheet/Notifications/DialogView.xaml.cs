@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace PonderingProgrammer.QuickSheet.Notifications
+namespace QuickSheet.Notifications
 {
     public partial class DialogView : UserControl
     {

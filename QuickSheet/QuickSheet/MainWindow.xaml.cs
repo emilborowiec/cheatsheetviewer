@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace PonderingProgrammer.QuickSheet
+namespace QuickSheet
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

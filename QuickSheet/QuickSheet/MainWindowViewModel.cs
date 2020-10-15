@@ -8,15 +8,15 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
-using PonderingProgrammer.QuickSheet.Annotations;
-using PonderingProgrammer.QuickSheet.CheatSheetPanel;
-using PonderingProgrammer.QuickSheet.Model;
-using PonderingProgrammer.QuickSheet.Notifications;
-using PonderingProgrammer.QuickSheet.Services;
+using QuickSheet.Annotations;
+using QuickSheet.CheatSheetPanel;
+using QuickSheet.Model;
+using QuickSheet.Notifications;
+using QuickSheet.Services;
 
 #endregion
 
-namespace PonderingProgrammer.QuickSheet
+namespace QuickSheet
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {

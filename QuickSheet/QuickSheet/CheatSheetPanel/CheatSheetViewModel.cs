@@ -6,10 +6,10 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using PonderingProgrammer.QuickSheet.Annotations;
-using PonderingProgrammer.QuickSheet.Model;
+using QuickSheet.Annotations;
+using QuickSheet.Model;
 
-namespace PonderingProgrammer.QuickSheet.CheatSheetPanel
+namespace QuickSheet.CheatSheetPanel
 {
     public class CheatSheetViewModel : INotifyPropertyChanged
     {

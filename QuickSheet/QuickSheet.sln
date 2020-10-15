@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PonderingProgrammer.QuickSheet", "PonderingProgrammer.QuickSheet\PonderingProgrammer.QuickSheet.csproj", "{19097037-558A-4F19-A04B-992101D5B0CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickSheet", "QuickSheet\QuickSheet.csproj", "{19097037-558A-4F19-A04B-992101D5B0CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
