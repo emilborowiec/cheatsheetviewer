@@ -28,21 +28,21 @@
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         
         <SolidColorBrush x:Key="BackgroundLight"
-                         Color="Azure" />
+                         Color="#E0E0E0" />
         <SolidColorBrush x:Key="BackgroundDark"
-                         Color="Black" />
+                         Color="#1F1F1F" />
         <SolidColorBrush x:Key="TextLight"
-                         Color="Black" />
+                         Color="#303030" />
         <SolidColorBrush x:Key="TextDark"
-                         Color="Azure" />
+                         Color="#CFCFCF" />
         <SolidColorBrush x:Key="PanelLight"
-                         Color="WhiteSmoke" />
+                         Color="#F9F9F9" />
         <SolidColorBrush x:Key="PanelDark"
-                         Color="DarkSlateGray" />
+                         Color="#282828" />
         <SolidColorBrush x:Key="HeaderLight"
-                         Color="LightSkyBlue" />
+                         Color="#696FBB" />
         <SolidColorBrush x:Key="HeaderDark"
-                         Color="DarkBlue" />
+                         Color="#3E4063" />
         
         <!-- Text color -->
         <Style TargetType="{x:Type TextBlock}"
