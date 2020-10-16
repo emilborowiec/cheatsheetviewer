@@ -216,6 +216,9 @@
                 <ItemsPanelTemplate>
                     <WrapPanel IsItemsHost="True" 
                                Orientation="Vertical">
+                        <WrapPanel.Effect>
+                            <DropShadowEffect />
+                        </WrapPanel.Effect>
                     </WrapPanel>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
