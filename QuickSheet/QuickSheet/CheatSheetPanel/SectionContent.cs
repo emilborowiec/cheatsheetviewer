@@ -43,7 +43,7 @@ namespace QuickSheet.CheatSheetPanel
 
         public int GetWidth()
         {
-            return Math.Max(Title.Length, Cheats.Max(GetWidth));
+            return Math.Max(Title?.Length ?? 0, Cheats.Max(GetWidth));
         }
 
     }

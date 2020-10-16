@@ -19,6 +19,8 @@
         <KeyBinding Key="Escape" Command="{Binding ExitCommand}"></KeyBinding>
         <KeyBinding Key="Left" Command="{Binding SwitchSheetCommand}" CommandParameter="left" />
         <KeyBinding Key="Right" Command="{Binding SwitchSheetCommand}" CommandParameter="right" />
+        <KeyBinding Key="Up" Command="{Binding AdjustFontSizeCommand}" CommandParameter="up" />
+        <KeyBinding Key="Down" Command="{Binding AdjustFontSizeCommand}" CommandParameter="down" />
         <KeyBinding Key="r" Command="{Binding ReloadSheetsCommand}" />
     </Window.InputBindings>
     

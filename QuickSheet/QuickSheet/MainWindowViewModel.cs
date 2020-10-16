@@ -24,6 +24,7 @@ namespace QuickSheet
         {
             _cheatSheetViewModel = new CheatSheetViewModel();
             SwitchSheetCommand = new DelegateCommand<string>(SwitchSheet);
+            AdjustFontSizeCommand = new DelegateCommand<string>(AdjustFontSize);
             ExitCommand = new DelegateCommand(Exit);
             ReloadSheetsCommand = new DelegateCommand(ReloadCheatSheets);
             ReloadCheatSheets();
@@ -38,6 +39,7 @@ namespace QuickSheet
         public DelegateCommand<string> SwitchSheetCommand { get; }
         public DelegateCommand ExitCommand { get; } 
         public DelegateCommand ReloadSheetsCommand { get; }
+        public DelegateCommand<string> AdjustFontSizeCommand { get; }
 
         public CheatSheet CurrentCheatSheet => CurrentIndex == -1 ? null : _cheatSheets[CurrentIndex];
 
@@ -126,6 +128,12 @@ namespace QuickSheet
             }
 
             CheatSheetViewModel.CheatSheet = CurrentCheatSheet;
+        }
+
+        private void AdjustFontSize(string param)
+        {
+            var amount = "up".Equals(param) ? 2 : -2;
+            CheatSheetViewModel.BaseFontSize += amount;
         }
 
         private void OpenDialog(string title, string message)

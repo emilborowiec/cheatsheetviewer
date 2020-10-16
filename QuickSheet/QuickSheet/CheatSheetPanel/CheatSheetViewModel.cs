@@ -14,27 +14,26 @@ namespace QuickSheet.CheatSheetPanel
     public class CheatSheetViewModel : INotifyPropertyChanged
     {
         private static readonly int DefaultFontSize = 12;
-        private static readonly int MaxFontSize = 48;
-        
-        private int GetLineCount()
-        {
-            return 1 + Sections.Sum(s => s.GetLineCount());
-        }
+        private static readonly int MinBaseFontSize = 6;
+        private static readonly int MaxBaseFontSize = 48;
 
-        private static List<SectionContent> CreateViewSections(CheatSheet cheatSheet)
-        {
-            var viewSections = new List<SectionContent>();
-            if (cheatSheet.Cheats.Count > 0)
-            {
-                viewSections.Add(new SectionContent(cheatSheet.Cheats));
-            }
-
-            viewSections.AddRange(cheatSheet.Sections.Select(section => new SectionContent(section.Name, section.Cheats)));
-            
-            return viewSections;
-        }
-
+        private int _baseFontSize = DefaultFontSize;
         private CheatSheet _cheatSheet;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public int BaseFontSize
+        {
+            get => _baseFontSize;
+            set
+            {
+                if (value != _baseFontSize && value >= MinBaseFontSize && value <= MaxBaseFontSize)
+                {
+                    _baseFontSize = value;
+                    NotifyFontSizeChanged();
+                }
+            }
+        }
 
         public CheatSheet CheatSheet
         {
@@ -64,15 +63,38 @@ namespace QuickSheet.CheatSheetPanel
                 if (h >= 720) size = 24;
                 if (h >= 1080) size = 28;
                 if (h >= 1440) size = 32;
-                if (h >= 2160) size = MaxFontSize;
-                if (h >= 4320) size = MaxFontSize + 4;
+                if (h >= 2160) size = MaxBaseFontSize;
+                if (h >= 4320) size = MaxBaseFontSize + 4;
                 return DefaultFontSize + size;
             }
         }
-        
-        public int SectionFontSize => (int) (CalculateBaseFontSize() * 1.2);
-        public int CaptionFontSize => (int) (CalculateBaseFontSize() * 1.1);
-        public int EntryFontSize => CalculateBaseFontSize();
+
+        public int SectionFontSize => (int) (BaseFontSize * 1.2);
+        public int CaptionFontSize => (int) (BaseFontSize * 1.1);
+        public int EntryFontSize => BaseFontSize;
+
+        private int GetLineCount()
+        {
+            return 1 + Sections.Sum(s => s.GetLineCount());
+        }
+
+        private static List<SectionContent> CreateViewSections(CheatSheet cheatSheet)
+        {
+            var viewSections = new List<SectionContent>();
+            if (cheatSheet.Cheats.Count > 0)
+            {
+                viewSections.Add(new SectionContent(cheatSheet.Cheats));
+            }
+
+            viewSections.AddRange(cheatSheet.Sections.Select(section => new SectionContent(section.Name, section.Cheats)));
+
+            return viewSections;
+        }
+
+        public void UpdateBaseFontSize()
+        {
+            BaseFontSize = CalculateBaseFontSize();
+        }
 
         private int CalculateBaseFontSize()
         {
@@ -82,8 +104,8 @@ namespace QuickSheet.CheatSheetPanel
             var referenceString = new string('o', GetMaxWidth());
             double size = 4;
             var increment = 2;
-            
-            while (size + increment < MaxFontSize && WillItFit(referenceString, new Typeface("Arial"), size + increment, w, h))
+
+            while (size + increment < MaxBaseFontSize && WillItFit(referenceString, new Typeface("Arial"), size + increment, w, h))
             {
                 size += increment;
             }
@@ -91,15 +113,16 @@ namespace QuickSheet.CheatSheetPanel
             return (int) size;
         }
 
-        public bool WillItFit(string referenceString, Typeface typeface, double fontSize, int windowWidth, int windowHeight)
+        private bool WillItFit(string referenceString, Typeface typeface, double fontSize, int windowWidth, int windowHeight)
         {
-            var formattedText = new FormattedText(referenceString, 
-                                                  CultureInfo.CurrentCulture, 
-                                                  FlowDirection.LeftToRight, 
-                                                  typeface, 
-                                                  fontSize, 
-                                                  Brushes.Black, 
-                                                  VisualTreeHelper.GetDpi(Application.Current.MainWindow).PixelsPerDip);
+            var formattedText = new FormattedText(
+                referenceString,
+                CultureInfo.CurrentCulture,
+                FlowDirection.LeftToRight,
+                typeface,
+                fontSize,
+                Brushes.Black,
+                VisualTreeHelper.GetDpi(Application.Current.MainWindow).PixelsPerDip);
             if (windowWidth < formattedText.Width) return false;
             if (windowHeight < formattedText.Height) return false;
 
@@ -108,7 +131,7 @@ namespace QuickSheet.CheatSheetPanel
 
             return columns * rows >= GetLineCount();
         }
-        
+
         public void NotifyFontSizeChanged()
         {
             OnPropertyChanged(nameof(TitleFontSize));
@@ -121,8 +144,6 @@ namespace QuickSheet.CheatSheetPanel
         {
             return Sections.Max(s => s.GetWidth());
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
