@@ -11,40 +11,145 @@
 
     <b:Interaction.Triggers>
         <b:EventTrigger EventName="Loaded">
-            <b:CallMethodAction TargetObject="{Binding}" MethodName="UpdateBaseFontSize" />
+            <b:CallMethodAction TargetObject="{Binding}" 
+                                MethodName="UpdateBaseFontSize" />
         </b:EventTrigger>
         <b:EventTrigger EventName="SizeChanged">
-            <b:CallMethodAction TargetObject="{Binding}" MethodName="UpdateBaseFontSize" />
+            <b:CallMethodAction TargetObject="{Binding}" 
+                                MethodName="UpdateBaseFontSize" />
         </b:EventTrigger>
         <b:EventTrigger EventName="SizeChanged">
-            <b:CallMethodAction TargetObject="{Binding}" MethodName="UpdateBaseFontSize" />
+            <b:CallMethodAction TargetObject="{Binding}" 
+                                MethodName="UpdateBaseFontSize" />
         </b:EventTrigger>
     </b:Interaction.Triggers>
     
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         
-        <Style TargetType="{x:Type TextBlock}" x:Key="TitleStyle">
-            <Setter Property="FontFamily" Value="Arial" />
-            <Setter Property="FontSize" Value="{Binding TitleFontSize}" />
-            <Setter Property="FontWeight" Value="Bold" />
+        <SolidColorBrush x:Key="BackgroundLight"
+                         Color="Azure" />
+        <SolidColorBrush x:Key="BackgroundDark"
+                         Color="Black" />
+        <SolidColorBrush x:Key="TextLight"
+                         Color="Black" />
+        <SolidColorBrush x:Key="TextDark"
+                         Color="Azure" />
+        <SolidColorBrush x:Key="PanelLight"
+                         Color="WhiteSmoke" />
+        <SolidColorBrush x:Key="PanelDark"
+                         Color="DarkSlateGray" />
+        <SolidColorBrush x:Key="HeaderLight"
+                         Color="LightSkyBlue" />
+        <SolidColorBrush x:Key="HeaderDark"
+                         Color="DarkBlue" />
+        
+        <!-- Text color -->
+        <Style TargetType="{x:Type TextBlock}"
+               x:Key="TextStyle">
+            <Setter Property="Foreground"
+                    Value="{StaticResource TextLight}" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding DataContext.DarkMode, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                             Value="True">
+                    <Setter Property="Foreground"
+                            Value="{StaticResource TextDark}" />
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
         
-        <Style TargetType="{x:Type TextBlock}" x:Key="SectionNameStyle">
-            <Setter Property="FontFamily" Value="Arial" />
-            <Setter Property="FontSize" Value="{Binding DataContext.SectionFontSize, RelativeSource={RelativeSource AncestorType=UserControl}}" />
-            <Setter Property="FontWeight" Value="Bold" />
+        <!-- Sheet body background -->
+        <Style TargetType="ItemsControl"
+               x:Key="BodyStyle">
+            <Setter Property="Background"
+                    Value="{StaticResource BackgroundLight}" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding DarkMode}"
+                             Value="True">
+                    <Setter Property="Background"
+                            Value="{StaticResource BackgroundDark}" />
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
         
-        <Style TargetType="{x:Type TextBlock}" x:Key="CaptionStyle">
-            <Setter Property="FontFamily" Value="Arial" />
-            <Setter Property="FontSize" Value="{Binding DataContext.CaptionFontSize, RelativeSource={RelativeSource AncestorType=UserControl}}" />
-            <Setter Property="FontWeight" Value="Bold" />
+        <!-- Section body background -->
+        <Style TargetType="Grid"
+               x:Key="SectionContentStyle">
+            <Setter Property="Margin"
+                    Value="8 8 0 0" />
+            <Setter Property="Background"
+                    Value="{StaticResource PanelLight}" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding DataContext.DarkMode, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                             Value="True">
+                    <Setter Property="Background"
+                            Value="{StaticResource PanelDark}" />
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
         
-        <Style TargetType="{x:Type TextBlock}" x:Key="EntryStyle">
-            <Setter Property="FontFamily" Value="Courier New" />
-            <Setter Property="FontSize" Value="{Binding DataContext.EntryFontSize, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+        <!-- Sheet header -->
+        <Style TargetType="{x:Type TextBlock}" 
+               x:Key="TitleStyle"
+               BasedOn="{StaticResource TextStyle}">
+            <Setter Property="FontFamily" 
+                    Value="Arial" />
+            <Setter Property="FontSize"
+                    Value="{Binding TitleFontSize}" />
+            <Setter Property="FontWeight" 
+                    Value="Bold" />
+            <Setter Property="Background"
+                    Value="{StaticResource HeaderLight}" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding DarkMode}"
+                             Value="True">
+                    <Setter Property="Background"
+                            Value="{StaticResource HeaderDark}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        
+        <!-- Section header -->
+        <Style TargetType="{x:Type TextBlock}" 
+               x:Key="SectionNameStyle"
+               BasedOn="{StaticResource TextStyle}">
+            <Setter Property="FontFamily" 
+                    Value="Arial" />
+            <Setter Property="FontSize" 
+                    Value="{Binding DataContext.SectionFontSize, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+            <Setter Property="FontWeight" 
+                    Value="Bold" />
+            <Setter Property="Background"
+                    Value="{StaticResource HeaderLight}" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding DataContext.DarkMode, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                             Value="True">
+                    <Setter Property="Background"
+                            Value="{StaticResource HeaderDark}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        
+        <!-- Cheat caption -->
+        <Style TargetType="{x:Type TextBlock}" 
+               x:Key="CaptionStyle"
+               BasedOn="{StaticResource TextStyle}">
+            <Setter Property="FontFamily" 
+                    Value="Arial" />
+            <Setter Property="FontSize" 
+                    Value="{Binding DataContext.CaptionFontSize, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+            <Setter Property="FontWeight" 
+                    Value="Bold" />
+        </Style>
+        
+        <!-- Cheat entry -->
+        <Style TargetType="{x:Type TextBlock}" 
+               x:Key="EntryStyle"
+               BasedOn="{StaticResource TextStyle}">
+            <Setter Property="FontFamily"
+                    Value="Courier New" />
+            <Setter Property="FontSize" 
+                    Value="{Binding DataContext.EntryFontSize, RelativeSource={RelativeSource AncestorType=UserControl}}" />
         </Style>
         
         <DataTemplate x:Key="EntryDataTemplate">
@@ -55,7 +160,8 @@
         </DataTemplate>
         
         <DataTemplate DataType="{x:Type model:Cheat}">
-            <StackPanel Orientation="Vertical" Margin="0 0 12 0">
+            <StackPanel Orientation="Vertical" 
+                        Margin="0 0 12 0">
                 <TextBlock Style="{StaticResource CaptionStyle}"
                            Text="{Binding Caption}" />
                 <ItemsControl ItemsSource="{Binding Entries}" 
@@ -64,15 +170,13 @@
         </DataTemplate>
         
         <DataTemplate DataType="{x:Type cheatSheetPanel:SectionContent}">
-            <Grid Background="White"
-                  Margin="8 8 0 0">
+            <Grid Style="{StaticResource SectionContentStyle}">
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" 
                            Style="{StaticResource SectionNameStyle}"
-                           Background="#A3CEF1"
                            Padding="4"
                            Visibility="{Binding IsNotRootSection, Converter={StaticResource BoolToVisibilityConverter}}"
                            Text="{Binding Title}">
@@ -102,12 +206,11 @@
                    Style="{StaticResource TitleStyle}"
                    TextAlignment="Center"
                    Padding="4"
-                   Background="#6096BA" 
                    Text="{Binding CheatSheet.Title, Mode=OneWay}">
         </TextBlock>
         
         <ItemsControl Grid.Row="1" 
-                      Background="#E7ECEF" 
+                      Style="{StaticResource BodyStyle}"
                       ItemsSource="{Binding Sections}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>

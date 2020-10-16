@@ -19,6 +19,7 @@ namespace QuickSheet.CheatSheetPanel
 
         private int _baseFontSize = DefaultFontSize;
         private CheatSheet _cheatSheet;
+        private bool _darkMode;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -47,6 +48,19 @@ namespace QuickSheet.CheatSheetPanel
                     OnPropertyChanged(nameof(CheatSheet));
                     OnPropertyChanged(nameof(Sections));
                     NotifyFontSizeChanged();
+                }
+            }
+        }
+
+        public bool DarkMode
+        {
+            get => _darkMode;
+            set
+            {
+                if (value != _darkMode)
+                {
+                    _darkMode = value;
+                    OnPropertyChanged(nameof(DarkMode));
                 }
             }
         }

@@ -27,6 +27,7 @@ namespace QuickSheet
             AdjustFontSizeCommand = new DelegateCommand<string>(AdjustFontSize);
             ExitCommand = new DelegateCommand(Exit);
             ReloadSheetsCommand = new DelegateCommand(ReloadCheatSheets);
+            ToggleDarkModeCommand = new DelegateCommand(ToggleDarkMode);
             ReloadCheatSheets();
         }
 
@@ -40,6 +41,7 @@ namespace QuickSheet
         public DelegateCommand ExitCommand { get; } 
         public DelegateCommand ReloadSheetsCommand { get; }
         public DelegateCommand<string> AdjustFontSizeCommand { get; }
+        public DelegateCommand ToggleDarkModeCommand { get; }
 
         public CheatSheet CurrentCheatSheet => CurrentIndex == -1 ? null : _cheatSheets[CurrentIndex];
 
@@ -76,6 +78,10 @@ namespace QuickSheet
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private void ToggleDarkMode()
+        {
+            CheatSheetViewModel.DarkMode = !CheatSheetViewModel.DarkMode;
+        }
 
         private void ReloadCheatSheets()
         {

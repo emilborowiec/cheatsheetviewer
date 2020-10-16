@@ -22,6 +22,7 @@
         <KeyBinding Key="Up" Command="{Binding AdjustFontSizeCommand}" CommandParameter="up" />
         <KeyBinding Key="Down" Command="{Binding AdjustFontSizeCommand}" CommandParameter="down" />
         <KeyBinding Key="r" Command="{Binding ReloadSheetsCommand}" />
+        <KeyBinding Key="m" Command="{Binding ToggleDarkModeCommand}" />
     </Window.InputBindings>
     
     <Grid>
