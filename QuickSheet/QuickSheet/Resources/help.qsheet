@@ -1,0 +1,24 @@
+# QuickSheet Help
+
+### Sheet title
+First line must contain sheet title
+It must begin with # and title goes after single whitespace
+
+### Cheat structure
+Cheat is composed of Caption and Entries
+Caption starts with ### and whitespace
+Entries are lines below caption and before another caption or section
+
+## Section on sections
+
+### Section name
+Sections start with ## whitespace and then section name
+
+### Cheats in section
+Every cheat after section start belongs to that section
+Until next section starts
+
+### Root section
+Cheats can be added under sheet title and before first section start
+Those cheats are considered to be in group section
+Group section is rendered without a name because it doesn't have any

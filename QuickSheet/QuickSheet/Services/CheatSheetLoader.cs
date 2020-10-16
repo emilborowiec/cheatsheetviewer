@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
+using System.Windows;
 using QuickSheet.Model;
 
 namespace QuickSheet.Services
@@ -16,9 +18,12 @@ namespace QuickSheet.Services
 
                 var quickSheetsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
                                       Path.DirectorySeparatorChar + QuickSheetsFolderName;
-                if (!Directory.Exists(quickSheetsPath)) return list;
+                IEnumerable<string> qsheetFiles = new List<string>();
+                if (Directory.Exists(quickSheetsPath))
+                {
+                    qsheetFiles = Directory.EnumerateFiles(quickSheetsPath, "*.qsheet", SearchOption.TopDirectoryOnly);
+                }
 
-                var qsheetFiles = Directory.EnumerateFiles(quickSheetsPath, "*.qsheet", SearchOption.TopDirectoryOnly);
                 foreach (var file in qsheetFiles)
                 {
                     try
@@ -38,8 +43,36 @@ namespace QuickSheet.Services
                         list.Add(Result<CheatSheet>.Failure(e.Message, Path.GetFileName(file)));
                     }
                 }
+                
+                if (!list.Any(r => r.IsSuccess)) list.Add(Result<CheatSheet>.Success(LoadHelpSheet()));
 
             return list;
+        }
+
+        public static CheatSheet LoadHelpSheet()
+        {
+            var uri = new Uri("/Resources/help.qsheet", UriKind.Relative);
+            var info = Application.GetResourceStream(uri);
+            var lines = ReadLines(() =>
+            {
+                if (info != null) return info.Stream;
+                throw new Exception("Internal resource not found");
+            }, Encoding.UTF8).ToList();
+            return ParseCheatSheet(lines);
+        }
+        
+        private static IEnumerable<string> ReadLines(Func<Stream> streamProvider,
+                                             Encoding encoding)
+        {
+            using (var stream = streamProvider())
+            using (var reader = new StreamReader(stream, encoding))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    yield return line;
+                }
+            }
         }
 
         private static CheatSheet LoadSheet(string path)
