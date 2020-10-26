@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using QuickSheet.Annotations;
 using QuickSheet.Model;
+using QuickSheet.Services;
 
 namespace QuickSheet.CheatSheetPanel
 {
@@ -18,54 +19,10 @@ namespace QuickSheet.CheatSheetPanel
         private static readonly int MaxBaseFontSize = 48;
 
         private int _baseFontSize = DefaultFontSize;
-        private CheatSheet _cheatSheet;
         private bool _darkMode;
-
+        private CheatSheet _cheatSheet;
+        private SheetSettings _settings;
         public event PropertyChangedEventHandler PropertyChanged;
-
-        public int BaseFontSize
-        {
-            get => _baseFontSize;
-            set
-            {
-                if (value != _baseFontSize && value >= MinBaseFontSize && value <= MaxBaseFontSize)
-                {
-                    _baseFontSize = value;
-                    NotifyFontSizeChanged();
-                }
-            }
-        }
-
-        public CheatSheet CheatSheet
-        {
-            get => _cheatSheet;
-            set
-            {
-                if (value != _cheatSheet)
-                {
-                    _cheatSheet = value;
-                    Sections = CreateViewSections(_cheatSheet);
-                    OnPropertyChanged(nameof(CheatSheet));
-                    OnPropertyChanged(nameof(Sections));
-                    NotifyFontSizeChanged();
-                }
-            }
-        }
-
-        public bool DarkMode
-        {
-            get => _darkMode;
-            set
-            {
-                if (value != _darkMode)
-                {
-                    _darkMode = value;
-                    OnPropertyChanged(nameof(DarkMode));
-                }
-            }
-        }
-
-        public List<SectionContent> Sections { get; set; }
 
         public int TitleFontSize
         {
@@ -87,11 +44,61 @@ namespace QuickSheet.CheatSheetPanel
         public int CaptionFontSize => (int) (BaseFontSize * 1.1);
         public int EntryFontSize => BaseFontSize;
 
-        private int GetLineCount()
+        public int BaseFontSize
         {
-            return 1 + Sections.Sum(s => s.GetLineCount());
+            get => _baseFontSize;
+            set
+            {
+                if (value != _baseFontSize && value >= MinBaseFontSize && value <= MaxBaseFontSize)
+                {
+                    _baseFontSize = value;
+                    NotifyFontSizeChanged();
+                }
+            }
         }
 
+        public CheatSheet CheatSheet
+        {
+            get => _cheatSheet;
+            private set
+            {
+                if (value != _cheatSheet)
+                {
+                    _cheatSheet = value;
+                    Sections = CreateViewSections(_cheatSheet);
+                    OnPropertyChanged(nameof(CheatSheet));
+                    OnPropertyChanged(nameof(Sections));
+                    UpdateBaseFontSize();
+                    NotifyFontSizeChanged();
+                }
+            }
+        }
+
+        public bool DarkMode
+        {
+            get => _darkMode;
+            set
+            {
+                if (value != _darkMode)
+                {
+                    _darkMode = value;
+                    OnPropertyChanged(nameof(DarkMode));
+                }
+            }
+        }
+
+        public SheetSettings Settings
+        {
+            get => _settings;
+            set
+            {
+                _settings = value;
+                OnPropertyChanged(nameof(Settings));
+            }
+        }
+        public List<SectionContent> Sections { get; private set; }
+
+        
         private static List<SectionContent> CreateViewSections(CheatSheet cheatSheet)
         {
             var viewSections = new List<SectionContent>();
@@ -100,26 +107,55 @@ namespace QuickSheet.CheatSheetPanel
                 viewSections.Add(new SectionContent(cheatSheet.Cheats));
             }
 
-            viewSections.AddRange(cheatSheet.Sections.Select(section => new SectionContent(section.Name, section.Cheats)));
+            viewSections.AddRange(
+                cheatSheet.Sections.Select(section => new SectionContent(section.Name, section.Cheats)));
 
             return viewSections;
         }
 
+        public void SetCheatSheet(CheatSheet sheet, SheetSettings settings)
+        {
+            Settings = settings;
+            CheatSheet = sheet;
+        }
+
         public void UpdateBaseFontSize()
         {
-            BaseFontSize = CalculateBaseFontSize();
+            BaseFontSize = (_settings != null && _settings.FontSizeLock) 
+                ? _settings.BaseFontSize 
+                : CalculateBaseFontSize();
+        }
+
+        public void NotifyFontSizeChanged()
+        {
+            OnPropertyChanged(nameof(TitleFontSize));
+            OnPropertyChanged(nameof(SectionFontSize));
+            OnPropertyChanged(nameof(CaptionFontSize));
+            OnPropertyChanged(nameof(EntryFontSize));
+        }
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private int GetLineCount()
+        {
+            return 1 + Sections?.Sum(s => s.GetLineCount()) ?? 0;
         }
 
         private int CalculateBaseFontSize()
         {
-            if (Application.Current.MainWindow == null) return DefaultFontSize;
+            if (Application.Current.MainWindow?.Content == null) return DefaultFontSize;
             var h = (int) ((Panel) Application.Current.MainWindow.Content).ActualHeight;
             var w = (int) ((Panel) Application.Current.MainWindow.Content).ActualWidth;
             var referenceString = new string('o', GetMaxWidth());
             double size = 4;
             var increment = 2;
 
-            while (size + increment < MaxBaseFontSize && WillItFit(referenceString, new Typeface("Arial"), size + increment, w, h))
+            while (size + increment < MaxBaseFontSize && WillItFit(
+                referenceString, new Typeface("Arial"), size + increment, w, h))
             {
                 size += increment;
             }
@@ -127,7 +163,12 @@ namespace QuickSheet.CheatSheetPanel
             return (int) size;
         }
 
-        private bool WillItFit(string referenceString, Typeface typeface, double fontSize, int windowWidth, int windowHeight)
+        private bool WillItFit(
+            string referenceString,
+            Typeface typeface,
+            double fontSize,
+            int windowWidth,
+            int windowHeight)
         {
             var formattedText = new FormattedText(
                 referenceString,
@@ -146,23 +187,9 @@ namespace QuickSheet.CheatSheetPanel
             return columns * rows >= GetLineCount();
         }
 
-        public void NotifyFontSizeChanged()
-        {
-            OnPropertyChanged(nameof(TitleFontSize));
-            OnPropertyChanged(nameof(SectionFontSize));
-            OnPropertyChanged(nameof(CaptionFontSize));
-            OnPropertyChanged(nameof(EntryFontSize));
-        }
-
         private int GetMaxWidth()
         {
-            return Sections.Max(s => s.GetWidth());
-        }
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            return Sections?.Max(s => s.GetWidth()) ?? 0;
         }
     }
 }

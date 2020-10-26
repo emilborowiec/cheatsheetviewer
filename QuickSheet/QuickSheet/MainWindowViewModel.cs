@@ -28,20 +28,29 @@ namespace QuickSheet
             ExitCommand = new DelegateCommand(Exit);
             ReloadSheetsCommand = new DelegateCommand(ReloadCheatSheets);
             ToggleDarkModeCommand = new DelegateCommand(ToggleDarkMode);
+            ToggleLockCommand = new DelegateCommand(ToggleLock);
+            LoadSettings();
             ReloadCheatSheets();
         }
 
+        private void LoadSettings()
+        {
+            _settings = SettingsService.LoadSettings();
+        }
+
         private List<CheatSheet> _cheatSheets;
-        private int _currentIndex;
+        private Settings _settings;
+        private int _currentIndex = -1;
         private CheatSheetViewModel _cheatSheetViewModel;
         private List<Result<CheatSheet>> _errors;
-
 
         public DelegateCommand<string> SwitchSheetCommand { get; }
         public DelegateCommand ExitCommand { get; } 
         public DelegateCommand ReloadSheetsCommand { get; }
         public DelegateCommand<string> AdjustFontSizeCommand { get; }
         public DelegateCommand ToggleDarkModeCommand { get; }
+        public DelegateCommand ToggleLockCommand { get; }
+
 
         public CheatSheet CurrentCheatSheet => CurrentIndex == -1 ? null : _cheatSheets[CurrentIndex];
 
@@ -52,7 +61,7 @@ namespace QuickSheet
             {
                 if (value == _currentIndex) return;
                 _currentIndex = value;
-                _cheatSheetViewModel.CheatSheet = CurrentCheatSheet;
+                _cheatSheetViewModel.SetCheatSheet(CurrentCheatSheet, _settings.GetSettings(CurrentCheatSheet.Title));
             }
         }
 
@@ -83,6 +92,17 @@ namespace QuickSheet
             CheatSheetViewModel.DarkMode = !CheatSheetViewModel.DarkMode;
         }
 
+        private void ToggleLock()
+        {
+            var settings = _settings.GetSettings(CurrentCheatSheet.Title);
+            if (settings != null)
+            {
+                settings.FontSizeLock = !settings.FontSizeLock;
+                SettingsService.SaveSettings(_settings);
+                _cheatSheetViewModel.Settings = _settings.GetSettings(CurrentCheatSheet.Title);
+            }
+        }
+
         private void ReloadCheatSheets()
         {
             _cheatSheets = new List<CheatSheet>();
@@ -94,7 +114,6 @@ namespace QuickSheet
             }
 
             CurrentIndex = _cheatSheets.Count > 0 ? 0 : -1;
-            CheatSheetViewModel.CheatSheet = CurrentCheatSheet;
 
             Errors = results.Where(r => r.IsSuccess != true).ToList();
             if (Errors.Count > 0)
@@ -132,14 +151,17 @@ namespace QuickSheet
                     CurrentIndex = 0;
                 }
             }
-
-            CheatSheetViewModel.CheatSheet = CurrentCheatSheet;
         }
 
         private void AdjustFontSize(string param)
         {
             var amount = "up".Equals(param) ? 2 : -2;
             CheatSheetViewModel.BaseFontSize += amount;
+            var sheetSettings = _settings.GetSettings(CheatSheetViewModel.CheatSheet.Title);
+            sheetSettings.FontSizeLock = true;
+            sheetSettings.BaseFontSize = CheatSheetViewModel.BaseFontSize;
+            SettingsService.SaveSettings(_settings);
+            _cheatSheetViewModel.Settings = _settings.GetSettings(CurrentCheatSheet.Title);
         }
 
         private void OpenDialog(string title, string message)

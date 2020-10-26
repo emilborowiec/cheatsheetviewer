@@ -109,6 +109,13 @@
             </Style.Triggers>
         </Style>
         
+        <!-- Status -->
+        <Style TargetType="{x:Type TextBlock}" 
+               x:Key="StatusStyle"
+               BasedOn="{StaticResource TextStyle}">
+            
+        </Style>
+        
         <!-- Section header -->
         <Style TargetType="{x:Type TextBlock}" 
                x:Key="SectionNameStyle"
@@ -207,6 +214,14 @@
                    TextAlignment="Center"
                    Padding="4"
                    Text="{Binding CheatSheet.Title, Mode=OneWay}">
+        </TextBlock>
+        
+        <TextBlock Grid.Row="0"
+                   Visibility="{Binding Settings.FontSizeLock, Converter={StaticResource BoolToVisibilityConverter}}"
+                   Style="{StaticResource StatusStyle}"
+                   TextAlignment="Right"
+                   Padding="4"
+                   Text="Locked">
         </TextBlock>
         
         <ItemsControl Grid.Row="1" 
