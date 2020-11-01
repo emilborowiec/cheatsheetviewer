@@ -1,2 +1,86 @@
 # Windows Batch Cheat Sheet
 
+## Console
+
+### Clear
+cls
+
+### Sort output
+sort
+
+### Change color
+color <background><foreground>
+0 - Black, 1 - Blue, 2 - Green, 3 - Aqua, 4 - Red
+5 - Purple, 6 - Yellow, 7 - White, 8 - Gray
+9 to F gives bright variants corresponding to 1 to 7
+
+### Pipe output to other command
+<cmd> | <cmd>
+
+### Print output page by page
+more
+
+### Print sorted environment variables page by page
+set | sort | more
+
+## Navigation
+
+### Show contents of current directory
+dir
+
+### Change partition to D
+D:
+
+### Change current directory
+cd <dir>
+
+### Push current dir and change
+pushd <dir>
+
+### Pop dir from stack
+popd
+
+## Directory operations
+
+### Create directory
+mkdir <directory>
+
+### Create symbolic link to directory
+mklink /D <link> <target>
+
+### Delete directory tree
+rmdir /S /Q <dir>
+
+### Rename directory
+move <dir> <newdir>
+
+## File Operations
+
+### Print contents of text file
+type <file>
+
+### Delete file
+del <file>
+
+### Move file
+move <file> <dir>
+
+### Rename file
+ren <file> <newfile>
+
+## Scripting
+
+### Print message
+echo <message>
+
+### Do nothing (comment)
+rem <comment>
+
+### If statement
+if ..
+
+### Goto
+goto <label>
+
+### Exit on error
+if ...
