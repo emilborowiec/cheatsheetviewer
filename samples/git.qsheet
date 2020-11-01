@@ -1,0 +1,169 @@
+# Git Cheat Sheet
+
+## Git Concepts
+
+### Commit
+A node on history tree of git repo
+AKA: Revision
+
+### Branch
+Line of commits on history tree
+Also, dynamic reference to branch tip commit
+
+### Remote-tracking branch
+Local branch, named <remote>/<branch>
+Keeps track of state of <branch> on <remote>
+Updated with git fetch command
+
+### Head
+Dynamic reference to checked out branch or commit
+Updated by checkout and commit commands
+
+### Tag
+Static reference to particular commit 
+ 
+### Working Directory
+Directory with the files you work on
+Contains HEAD + local changes
+
+### Index
+Directory with the files you want to commit
+AKA: Staging area, Staged files, Cache
+
+## Config
+
+### Set config property
+git config <property> <value>
+
+### Get config property
+git config --get <property>
+
+### Get all config with origin
+git config --list --show-origin
+
+### Global config
+git config --global ...
+
+### Open config in editor
+git config --edit
+
+### Common properties
+user.name
+user.email
+core.autocrlf
+core.editor
+
+## Repository
+
+### Initialize repo
+git init
+git init <dir>
+
+### Clone repo
+git clone git@github.com:username/repo.git
+git clone https://github.com/username/repo.git
+
+### Get Status
+git status
+
+### Show commit history
+git log
+
+### Show unstaged changes
+git diff
+
+## Branches
+
+### Show local branches
+git branch
+
+### Show local and remote branches
+git branch -av
+
+### Switch branch
+git checkout <branch>
+
+### Create new branch
+git branch <branch>
+
+### Delete local branch
+git branch -d <branch>
+
+### Delete branch on remote repo
+git push <remote> -D <branch>
+
+### Create commit with changes from another branch
+git merge <branch>
+
+### Put current branch on top of another
+git rebase <branch>
+
+## Remotes
+
+### Show remote urls
+git remote -v
+
+### Change origin url
+git remote set-url <url>
+
+### Update remote-tracking branches
+git fetch <remote>
+
+### Update and merge
+git pull <remote>
+
+### Update and rebase
+git pull --rebase <remote>
+
+### Send local refs to remote repo
+git push <remote>
+
+## Making changes
+
+### Add all changed files to index
+git add .
+
+### Commit staged files
+git commit -m "message"
+
+### Commit all tracked files
+git commit -a -m "message"
+
+## Undoing uncommitted changes
+
+### Stash changes (save for later)
+git stash
+
+### Pop stash
+git stash pop
+
+### Discard all uncommitted changes
+git reset --hard
+
+### Discard changes done to a file
+git checkout HEAD -- <path>
+
+### Unstage file
+git reset -- <path>
+
+### Commit-level reset modes
+--mixed (default): resets staging, keeps working dir
+--hard: resets staging, resets working dir
+hard is useful for discarding changes
+--soft: only moves moves branch head
+soft is useful for squashing commits
+
+## Undoing committed changes
+
+### Revert last commit
+git revert HEAD
+
+### Revert specific commit
+git revert <commit>
+
+### Change last commit message
+git commit --amend -m "new message"
+
+### Squash commits
+git rebase -i <after-this-commit>
+replace 'pick' with 'squash'
