@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -38,8 +39,11 @@ namespace QuickSheet
         public DelegateCommand ToggleLockCommand { get; }
         public DelegateCommand ToggleSheetsInfoCommand { get; }
         public DelegateCommand ToggleShortcutsInfoCommand { get; }
+        public DelegateCommand<string> ShowSheetAtPositionCommand { get; }
         public CheatSheet CurrentCheatSheet => CurrentIndex == -1 ? null : _cheatSheets[CurrentIndex];
         public Dictionary<string, string> KeyboardShortcutsDictionary { get; set; }
+        public List<Tuple<string, int>> CheatSheetPositions => _cheatSheets.Select((CheatSheet sheet, int index) => new Tuple<string, int>(sheet.Title, index+1)).ToList();
+
         public int CurrentIndex
         {
             get => _currentIndex;
@@ -50,6 +54,7 @@ namespace QuickSheet
                 _cheatSheetViewModel.SetCheatSheet(CurrentCheatSheet, _settings.GetSettings(CurrentCheatSheet.Title));
             }
         }
+
         public CheatSheetViewModel CheatSheetViewModel
         {
             get => _cheatSheetViewModel;
@@ -59,6 +64,7 @@ namespace QuickSheet
                 OnPropertyChanged(nameof(CheatSheetViewModel));
             }
         }
+
         public List<Result<CheatSheet>> Errors
         {
             get => _errors;
@@ -68,25 +74,26 @@ namespace QuickSheet
                 OnPropertyChanged(nameof(Errors));
             }
         }
+
         public bool SheetsInfoPanelVisible
         {
             get => _sheetsInfoPanelVisible;
             set
             {
-                _sheetsInfoPanelVisible = value; 
+                _sheetsInfoPanelVisible = value;
                 OnPropertyChanged(nameof(SheetsInfoPanelVisible));
             }
         }
+
         public bool ShortcutsInfoPanelVisible
         {
             get => _shortcutsInfoPanelVisible;
             set
             {
-                _shortcutsInfoPanelVisible = value; 
+                _shortcutsInfoPanelVisible = value;
                 OnPropertyChanged(nameof(ShortcutsInfoPanelVisible));
             }
         }
-
 
         public MainWindowViewModel()
         {
@@ -99,9 +106,10 @@ namespace QuickSheet
             ToggleLockCommand = new DelegateCommand(ToggleLock);
             ToggleSheetsInfoCommand = new DelegateCommand(ToggleSheetsInfoPanel);
             ToggleShortcutsInfoCommand = new DelegateCommand(ToggleShortcutsInfoPanel);
+            ShowSheetAtPositionCommand = new DelegateCommand<string>(ShowSheetAtPosition);
             LoadSettings();
             ReloadCheatSheets();
-            
+
             KeyboardShortcutsDictionary = new Dictionary<string, string>();
             KeyboardShortcutsDictionary["Online help"] = "F1";
             KeyboardShortcutsDictionary["Toggle loaded sheets info panel"] = "F2";
@@ -117,14 +125,23 @@ namespace QuickSheet
             KeyboardShortcutsDictionary["Close dialog / program"] = "Esc";
         }
 
-        public void ToggleSheetsInfoPanel()
+        private void ToggleSheetsInfoPanel()
         {
             SheetsInfoPanelVisible = !SheetsInfoPanelVisible;
         }
 
-        public void ToggleShortcutsInfoPanel()
+        private void ToggleShortcutsInfoPanel()
         {
             ShortcutsInfoPanelVisible = !ShortcutsInfoPanelVisible;
+        }
+
+        private void ShowSheetAtPosition(string index)
+        {
+            var i = int.Parse(index);
+            if (i <= _cheatSheets.Count)
+            {
+                CurrentIndex = i - 1;
+            }
         }
 
         private void LoadSettings()
