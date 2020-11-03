@@ -185,7 +185,7 @@ namespace QuickSheet
                     {
                         await Task.Delay(1000);
                         OpenDialog(
-                            "Some Quick Sheets failed to load",
+                            "Some quicksheet files failed to load!",
                             string.Join('\n', Errors.Select(e => e.Source + " - " + e.Message)));
                     }));
             }

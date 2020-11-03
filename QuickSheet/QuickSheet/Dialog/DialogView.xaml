@@ -7,7 +7,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <StackPanel Orientation="Vertical">
         <TextBlock FontWeight="Bold"
-                   FontSize="20"
+                   FontSize="16"
                    Padding="12"
                    Text="{Binding Title}" />
         <TextBlock FontSize="12"
