@@ -1,4 +1,8 @@
-﻿using QuickSheet.Dialog;
+﻿#region
+
+using QuickSheet.Dialog;
+
+#endregion
 
 namespace QuickSheet.Services
 {
@@ -7,7 +11,7 @@ namespace QuickSheet.Services
         public static void OpenDialog(DialogViewModel dialogViewModel)
         {
             var win = new DialogWindow {DataContext = dialogViewModel};
-            win.ShowDialog();  
+            win.ShowDialog();
         }
     }
 }

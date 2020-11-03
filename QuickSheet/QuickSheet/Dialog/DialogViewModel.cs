@@ -1,12 +1,16 @@
-﻿using System.Windows;
+﻿#region
+
+using System.Windows;
+
+#endregion
 
 namespace QuickSheet.Dialog
 {
     public class DialogViewModel
     {
+        public DelegateCommand<Window> ExitCommand { get; }
         public string Title { get; set; }
         public string Message { get; set; }
-        public DelegateCommand<Window> ExitCommand { get; }
 
         public DialogViewModel()
         {

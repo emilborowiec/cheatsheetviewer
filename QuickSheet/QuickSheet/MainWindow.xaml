@@ -10,27 +10,27 @@
         WindowState="Maximized"
         WindowStyle="None"
         Icon="icon.ico">
-    
+
     <Window.DataContext>
         <local:MainWindowViewModel />
     </Window.DataContext>
-    
+
     <Window.Resources>
-        <BooleanToVisibilityConverter x:Key="VisibilityConverter"/>
-        
+        <BooleanToVisibilityConverter x:Key="VisibilityConverter" />
+
         <Style x:Key="InfoPanelStyle"
                TargetType="{x:Type StackPanel}">
-            <Setter Property="Background" Value="MediumSlateBlue"/>
+            <Setter Property="Background" Value="MediumSlateBlue" />
         </Style>
         <Style x:Key="InfoPanelCaptionStyle"
                TargetType="{x:Type TextBlock}">
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontWeight" Value="Bold" />
         </Style>
     </Window.Resources>
-    
+
     <Window.InputBindings>
-        <KeyBinding Key="Escape" Command="{Binding ExitCommand}"></KeyBinding>
+        <KeyBinding Key="Escape" Command="{Binding ExitCommand}" />
         <KeyBinding Key="Left" Command="{Binding SwitchSheetCommand}" CommandParameter="left" />
         <KeyBinding Key="Right" Command="{Binding SwitchSheetCommand}" CommandParameter="right" />
         <KeyBinding Key="Up" Command="{Binding AdjustFontSizeCommand}" CommandParameter="up" />
@@ -50,14 +50,14 @@
         <KeyBinding Key="D8" Command="{Binding ShowSheetAtPositionCommand}" CommandParameter="8" />
         <KeyBinding Key="D9" Command="{Binding ShowSheetAtPositionCommand}" CommandParameter="9" />
     </Window.InputBindings>
-    
+
     <DockPanel>
-        <StackPanel DockPanel.Dock="Right" 
+        <StackPanel DockPanel.Dock="Right"
                     Orientation="Horizontal">
             <StackPanel.LayoutTransform>
-                <RotateTransform Angle="90"/>
+                <RotateTransform Angle="90" />
             </StackPanel.LayoutTransform>
-            
+
             <Button Command="{Binding ToggleSheetsInfoCommand}">Sheets</Button>
             <Button Command="{Binding ToggleShortcutsInfoCommand}">Shortcuts</Button>
         </StackPanel>
@@ -67,8 +67,8 @@
             </Grid>
             <Grid Visibility="{Binding SheetsInfoPanelVisible, Converter={StaticResource VisibilityConverter}}">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="1"
                             Style="{StaticResource InfoPanelStyle}">
@@ -77,28 +77,28 @@
                               ItemsSource="{Binding CheatSheetPositions}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Sheet"
-                                                Binding="{Binding Item1}"/>
+                                                Binding="{Binding Item1}" />
                             <DataGridTextColumn Header="Position"
-                                                Binding="{Binding Item2}"/>
+                                                Binding="{Binding Item2}" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </StackPanel>
             </Grid>
             <Grid Visibility="{Binding ShortcutsInfoPanelVisible, Converter={StaticResource VisibilityConverter}}">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="1"
-                      Style="{StaticResource InfoPanelStyle}">
+                            Style="{StaticResource InfoPanelStyle}">
                     <TextBlock Style="{StaticResource InfoPanelCaptionStyle}">Keyboard Shortcuts:</TextBlock>
                     <DataGrid AutoGenerateColumns="False"
                               ItemsSource="{Binding KeyboardShortcutsDictionary}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Command"
-                                                Binding="{Binding Key}"/>
+                                                Binding="{Binding Key}" />
                             <DataGridTextColumn Header="Shortcut"
-                                                Binding="{Binding Value}"/>
+                                                Binding="{Binding Value}" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </StackPanel>

@@ -1,10 +1,12 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Windows;
 using QuickSheet.Model;
+
+#endregion
 
 namespace QuickSheet.Services
 {
@@ -16,34 +18,34 @@ namespace QuickSheet.Services
         {
             var list = new List<Result<CheatSheet>>();
 
-                var quickSheetsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
-                                      Path.DirectorySeparatorChar + QuickSheetsFolderName;
-                IEnumerable<string> qsheetFiles = new List<string>();
-                if (Directory.Exists(quickSheetsPath))
-                {
-                    qsheetFiles = Directory.EnumerateFiles(quickSheetsPath, "*.qsheet", SearchOption.TopDirectoryOnly);
-                }
+            var quickSheetsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
+                                  Path.DirectorySeparatorChar + QuickSheetsFolderName;
+            IEnumerable<string> qsheetFiles = new List<string>();
+            if (Directory.Exists(quickSheetsPath))
+            {
+                qsheetFiles = Directory.EnumerateFiles(quickSheetsPath, "*.qsheet", SearchOption.TopDirectoryOnly);
+            }
 
-                foreach (var file in qsheetFiles)
+            foreach (var file in qsheetFiles)
+            {
+                try
                 {
-                    try
+                    var sheet = LoadSheet(file);
+                    if (sheet != null)
                     {
-                        var sheet = LoadSheet(file);
-                        if (sheet != null)
-                        {
-                            list.Add(Result<CheatSheet>.Success(sheet));
-                        }
-                        else
-                        {
-                            list.Add(Result<CheatSheet>.Failure("Failed to parse QuickSheet file", file));
-                        }
+                        list.Add(Result<CheatSheet>.Success(sheet));
                     }
-                    catch (FileFormatException e)
+                    else
                     {
-                        list.Add(Result<CheatSheet>.Failure(e.Message, Path.GetFileName(file)));
+                        list.Add(Result<CheatSheet>.Failure("Failed to parse QuickSheet file", file));
                     }
                 }
-                
+                catch (FileFormatException e)
+                {
+                    list.Add(Result<CheatSheet>.Failure(e.Message, Path.GetFileName(file)));
+                }
+            }
+
             return list;
         }
 
@@ -65,14 +67,15 @@ namespace QuickSheet.Services
             {
                 var line = enumerator.Current ?? throw new FileFormatException("Line null");
                 if (string.IsNullOrWhiteSpace(line)) continue;
-                     
+
                 if (line.StartsWith("## "))
                 {
                     // start section
                     var sectionName = line.Substring(3);
                     currentSection = new Section(sectionName);
                     sheet.Sections.Add(currentSection);
-                } else if (line.StartsWith("### "))
+                }
+                else if (line.StartsWith("### "))
                 {
                     // start cheat
                     var cheatCaption = line.Substring(4);
@@ -101,7 +104,8 @@ namespace QuickSheet.Services
         {
             if (!enumerator.MoveNext()) throw new FileFormatException("File is empty");
             var line = enumerator.Current ?? throw new FileFormatException("Line null");
-            if (!line.StartsWith("# ")) throw new FileFormatException("File does not start with properly formatted title");
+            if (!line.StartsWith("# "))
+                throw new FileFormatException("File does not start with properly formatted title");
             return line.Substring(2);
         }
     }

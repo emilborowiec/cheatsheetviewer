@@ -7,12 +7,12 @@
         mc:Ignorable="d"
         Title="QuickSheet" Height="250" Width="600"
         WindowStartupLocation="CenterScreen">
-    
+
     <Window.InputBindings>
-        <KeyBinding Key="Escape" 
-                    Command="{Binding ExitCommand}" 
-                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
+        <KeyBinding Key="Escape"
+                    Command="{Binding ExitCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
     </Window.InputBindings>
-    
+
     <dialog:DialogView DataContext="{Binding}" />
 </Window>

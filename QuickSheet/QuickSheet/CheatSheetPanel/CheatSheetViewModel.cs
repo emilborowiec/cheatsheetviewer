@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿#region
+
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
@@ -9,6 +11,8 @@ using System.Windows.Media;
 using QuickSheet.Annotations;
 using QuickSheet.Model;
 using QuickSheet.Services;
+
+#endregion
 
 namespace QuickSheet.CheatSheetPanel
 {
@@ -96,9 +100,10 @@ namespace QuickSheet.CheatSheetPanel
                 OnPropertyChanged(nameof(Settings));
             }
         }
+
         public List<SectionContent> Sections { get; private set; }
 
-        
+
         private static List<SectionContent> CreateViewSections(CheatSheet cheatSheet)
         {
             var viewSections = new List<SectionContent>();
@@ -121,8 +126,8 @@ namespace QuickSheet.CheatSheetPanel
 
         public void UpdateBaseFontSize()
         {
-            BaseFontSize = (_settings != null && _settings.FontSizeLock) 
-                ? _settings.BaseFontSize 
+            BaseFontSize = _settings != null && _settings.FontSizeLock
+                ? _settings.BaseFontSize
                 : CalculateBaseFontSize();
         }
 

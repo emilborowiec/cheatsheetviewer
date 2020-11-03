@@ -1,8 +1,11 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.IO;
 using System.Text;
 using System.Text.Json;
-using QuickSheet.Model;
+
+#endregion
 
 namespace QuickSheet.Services
 {
@@ -10,7 +13,7 @@ namespace QuickSheet.Services
     {
         private static readonly string QuickSheetSettingsFolderName = "QuickSheet";
         private static readonly string QuickSheetSettingsFileName = "settings.json";
-        
+
         public static Settings LoadSettings()
         {
             if (!File.Exists(GetSettingsFilePath()))
@@ -26,7 +29,7 @@ namespace QuickSheet.Services
         private static string GetSettingsFolderPath()
         {
             return Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
-                               Path.DirectorySeparatorChar + QuickSheetSettingsFolderName;
+                   Path.DirectorySeparatorChar + QuickSheetSettingsFolderName;
         }
 
         private static string GetSettingsFilePath()
@@ -45,7 +48,7 @@ namespace QuickSheet.Services
             using var streamWriter = new StreamWriter(fileStream, Encoding.UTF8);
 
             var settingsJson = JsonSerializer.Serialize(settings);
-            
+
             streamWriter.Write(settingsJson);
             streamWriter.Flush();
         }

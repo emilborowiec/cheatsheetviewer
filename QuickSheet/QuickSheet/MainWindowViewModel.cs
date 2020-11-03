@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -41,8 +40,11 @@ namespace QuickSheet
         public DelegateCommand ToggleShortcutsInfoCommand { get; }
         public DelegateCommand<string> ShowSheetAtPositionCommand { get; }
         public CheatSheet CurrentCheatSheet => CurrentIndex == -1 ? null : _cheatSheets[CurrentIndex];
+
+        public List<Tuple<string, int>> CheatSheetPositions =>
+            _cheatSheets.Select((sheet, index) => new Tuple<string, int>(sheet.Title, index + 1)).ToList();
+
         public Dictionary<string, string> KeyboardShortcutsDictionary { get; set; }
-        public List<Tuple<string, int>> CheatSheetPositions => _cheatSheets.Select((CheatSheet sheet, int index) => new Tuple<string, int>(sheet.Title, index+1)).ToList();
 
         public int CurrentIndex
         {
