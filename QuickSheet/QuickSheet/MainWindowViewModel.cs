@@ -11,8 +11,8 @@ using System.Windows;
 using System.Windows.Threading;
 using QuickSheet.Annotations;
 using QuickSheet.CheatSheetPanel;
+using QuickSheet.Dialog;
 using QuickSheet.Model;
-using QuickSheet.Notifications;
 using QuickSheet.Services;
 
 #endregion

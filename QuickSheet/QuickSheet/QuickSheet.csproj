@@ -22,13 +22,6 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
       <None Remove="Resources\help.qsheet" />
-      <Resource Include="Resources\help.qsheet">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Resource>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="InfoOverlay" />
     </ItemGroup>
 
 </Project>

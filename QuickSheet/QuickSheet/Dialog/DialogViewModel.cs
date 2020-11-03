@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace QuickSheet.Notifications
+namespace QuickSheet.Dialog
 {
     public class DialogViewModel
     {

@@ -1,4 +1,4 @@
-﻿using QuickSheet.Notifications;
+﻿using QuickSheet.Dialog;
 
 namespace QuickSheet.Services
 {

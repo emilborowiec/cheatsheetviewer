@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace QuickSheet.Notifications
+namespace QuickSheet.Dialog
 {
     public partial class DialogView : UserControl
     {

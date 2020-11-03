@@ -44,35 +44,7 @@ namespace QuickSheet.Services
                     }
                 }
                 
-                if (!list.Any(r => r.IsSuccess)) list.Add(Result<CheatSheet>.Success(LoadHelpSheet()));
-
             return list;
-        }
-
-        public static CheatSheet LoadHelpSheet()
-        {
-            var uri = new Uri("/Resources/help.qsheet", UriKind.Relative);
-            var info = Application.GetResourceStream(uri);
-            var lines = ReadLines(() =>
-            {
-                if (info != null) return info.Stream;
-                throw new Exception("Internal resource not found");
-            }, Encoding.UTF8).ToList();
-            return ParseCheatSheet(lines);
-        }
-        
-        private static IEnumerable<string> ReadLines(Func<Stream> streamProvider,
-                                             Encoding encoding)
-        {
-            using (var stream = streamProvider())
-            using (var reader = new StreamReader(stream, encoding))
-            {
-                string line;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    yield return line;
-                }
-            }
         }
 
         private static CheatSheet LoadSheet(string path)
