@@ -194,8 +194,8 @@
                     ItemsSource="{Binding Cheats}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <WrapPanel IsItemsHost="True"
-                                       Orientation="Vertical" />
+                            <StackPanel IsItemsHost="True"
+                                        Orientation="Vertical" />
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
