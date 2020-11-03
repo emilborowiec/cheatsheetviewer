@@ -20,40 +20,26 @@ namespace QuickSheet
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
-        public MainWindowViewModel()
-        {
-            _cheatSheetViewModel = new CheatSheetViewModel();
-            SwitchSheetCommand = new DelegateCommand<string>(SwitchSheet);
-            AdjustFontSizeCommand = new DelegateCommand<string>(AdjustFontSize);
-            ExitCommand = new DelegateCommand(Exit);
-            ReloadSheetsCommand = new DelegateCommand(ReloadCheatSheets);
-            ToggleDarkModeCommand = new DelegateCommand(ToggleDarkMode);
-            ToggleLockCommand = new DelegateCommand(ToggleLock);
-            LoadSettings();
-            ReloadCheatSheets();
-        }
-
-        private void LoadSettings()
-        {
-            _settings = SettingsService.LoadSettings();
-        }
-
         private List<CheatSheet> _cheatSheets;
         private Settings _settings;
         private int _currentIndex = -1;
         private CheatSheetViewModel _cheatSheetViewModel;
         private List<Result<CheatSheet>> _errors;
+        private bool _sheetsInfoPanelVisible;
+        private bool _shortcutsInfoPanelVisible;
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public DelegateCommand<string> SwitchSheetCommand { get; }
-        public DelegateCommand ExitCommand { get; } 
+        public DelegateCommand ExitCommand { get; }
         public DelegateCommand ReloadSheetsCommand { get; }
         public DelegateCommand<string> AdjustFontSizeCommand { get; }
         public DelegateCommand ToggleDarkModeCommand { get; }
         public DelegateCommand ToggleLockCommand { get; }
-
-
+        public DelegateCommand ToggleSheetsInfoCommand { get; }
+        public DelegateCommand ToggleShortcutsInfoCommand { get; }
         public CheatSheet CurrentCheatSheet => CurrentIndex == -1 ? null : _cheatSheets[CurrentIndex];
-
+        public Dictionary<string, string> KeyboardShortcutsDictionary { get; set; }
         public int CurrentIndex
         {
             get => _currentIndex;
@@ -64,7 +50,6 @@ namespace QuickSheet
                 _cheatSheetViewModel.SetCheatSheet(CurrentCheatSheet, _settings.GetSettings(CurrentCheatSheet.Title));
             }
         }
-
         public CheatSheetViewModel CheatSheetViewModel
         {
             get => _cheatSheetViewModel;
@@ -74,7 +59,6 @@ namespace QuickSheet
                 OnPropertyChanged(nameof(CheatSheetViewModel));
             }
         }
-
         public List<Result<CheatSheet>> Errors
         {
             get => _errors;
@@ -84,8 +68,69 @@ namespace QuickSheet
                 OnPropertyChanged(nameof(Errors));
             }
         }
+        public bool SheetsInfoPanelVisible
+        {
+            get => _sheetsInfoPanelVisible;
+            set
+            {
+                _sheetsInfoPanelVisible = value; 
+                OnPropertyChanged(nameof(SheetsInfoPanelVisible));
+            }
+        }
+        public bool ShortcutsInfoPanelVisible
+        {
+            get => _shortcutsInfoPanelVisible;
+            set
+            {
+                _shortcutsInfoPanelVisible = value; 
+                OnPropertyChanged(nameof(ShortcutsInfoPanelVisible));
+            }
+        }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+
+        public MainWindowViewModel()
+        {
+            _cheatSheetViewModel = new CheatSheetViewModel();
+            SwitchSheetCommand = new DelegateCommand<string>(SwitchSheet);
+            AdjustFontSizeCommand = new DelegateCommand<string>(AdjustFontSize);
+            ExitCommand = new DelegateCommand(Exit);
+            ReloadSheetsCommand = new DelegateCommand(ReloadCheatSheets);
+            ToggleDarkModeCommand = new DelegateCommand(ToggleDarkMode);
+            ToggleLockCommand = new DelegateCommand(ToggleLock);
+            ToggleSheetsInfoCommand = new DelegateCommand(ToggleSheetsInfoPanel);
+            ToggleShortcutsInfoCommand = new DelegateCommand(ToggleShortcutsInfoPanel);
+            LoadSettings();
+            ReloadCheatSheets();
+            
+            KeyboardShortcutsDictionary = new Dictionary<string, string>();
+            KeyboardShortcutsDictionary["Online help"] = "F1";
+            KeyboardShortcutsDictionary["Toggle loaded sheets info panel"] = "F2";
+            KeyboardShortcutsDictionary["Toggle keyboard shortcuts panel"] = "F10";
+            KeyboardShortcutsDictionary["Next loaded sheet"] = "Right";
+            KeyboardShortcutsDictionary["Previous loaded sheet"] = "Left";
+            KeyboardShortcutsDictionary["View loaded sheet"] = "1-9";
+            KeyboardShortcutsDictionary["Reload sheets"] = "R";
+            KeyboardShortcutsDictionary["Increase font size and lock"] = "Up";
+            KeyboardShortcutsDictionary["Decrease font size and lock"] = "Down";
+            KeyboardShortcutsDictionary["Toggle font size lock"] = "L";
+            KeyboardShortcutsDictionary["Toggle dark mode"] = "M";
+            KeyboardShortcutsDictionary["Close dialog / program"] = "Esc";
+        }
+
+        public void ToggleSheetsInfoPanel()
+        {
+            SheetsInfoPanelVisible = !SheetsInfoPanelVisible;
+        }
+
+        public void ToggleShortcutsInfoPanel()
+        {
+            ShortcutsInfoPanelVisible = !ShortcutsInfoPanelVisible;
+        }
+
+        private void LoadSettings()
+        {
+            _settings = SettingsService.LoadSettings();
+        }
 
         private void ToggleDarkMode()
         {
@@ -118,11 +163,14 @@ namespace QuickSheet
             Errors = results.Where(r => r.IsSuccess != true).ToList();
             if (Errors.Count > 0)
             {
-                Dispatcher.CurrentDispatcher.BeginInvoke((Action)(async () =>
-                {
-                    await Task.Delay(1000);
-                    OpenDialog("Some Quick Sheets failed to load", string.Join('\n', Errors.Select(e => e.Source + " - " + e.Message)));
-                }));
+                Dispatcher.CurrentDispatcher.BeginInvoke(
+                    (Action) (async () =>
+                    {
+                        await Task.Delay(1000);
+                        OpenDialog(
+                            "Some Quick Sheets failed to load",
+                            string.Join('\n', Errors.Select(e => e.Source + " - " + e.Message)));
+                    }));
             }
         }
 

@@ -15,6 +15,20 @@
         <local:MainWindowViewModel />
     </Window.DataContext>
     
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="VisibilityConverter"/>
+        
+        <Style x:Key="InfoPanelStyle"
+               TargetType="{x:Type StackPanel}">
+            <Setter Property="Background" Value="MediumSlateBlue"/>
+        </Style>
+        <Style x:Key="InfoPanelCaptionStyle"
+               TargetType="{x:Type TextBlock}">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+    </Window.Resources>
+    
     <Window.InputBindings>
         <KeyBinding Key="Escape" Command="{Binding ExitCommand}"></KeyBinding>
         <KeyBinding Key="Left" Command="{Binding SwitchSheetCommand}" CommandParameter="left" />
@@ -24,9 +38,53 @@
         <KeyBinding Key="r" Command="{Binding ReloadSheetsCommand}" />
         <KeyBinding Key="m" Command="{Binding ToggleDarkModeCommand}" />
         <KeyBinding Key="l" Command="{Binding ToggleLockCommand}" />
+        <KeyBinding Key="F2" Command="{Binding ToggleSheetsInfoCommand}" />
+        <KeyBinding Key="F10" Command="{Binding ToggleShortcutsInfoCommand}" />
     </Window.InputBindings>
     
-    <Grid>
-        <cs:CheatSheetView DataContext="{Binding CheatSheetViewModel}" /> 
-    </Grid>
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Right" 
+                    Orientation="Horizontal">
+            <StackPanel.LayoutTransform>
+                <RotateTransform Angle="90"/>
+            </StackPanel.LayoutTransform>
+            
+            <Button Command="{Binding ToggleSheetsInfoCommand}">Sheets</Button>
+            <Button Command="{Binding ToggleShortcutsInfoCommand}">Shortcuts</Button>
+        </StackPanel>
+        <Grid>
+            <Grid>
+                <cs:CheatSheetView DataContext="{Binding CheatSheetViewModel}" />
+            </Grid>
+            <Grid Visibility="{Binding SheetsInfoPanelVisible, Converter={StaticResource VisibilityConverter}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="1"
+                            Style="{StaticResource InfoPanelStyle}">
+                    <TextBlock>Sheets</TextBlock>
+                </StackPanel>
+            </Grid>
+            <Grid Visibility="{Binding ShortcutsInfoPanelVisible, Converter={StaticResource VisibilityConverter}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="1"
+                      Style="{StaticResource InfoPanelStyle}">
+                    <TextBlock Style="{StaticResource InfoPanelCaptionStyle}">Keyboard Shortcuts:</TextBlock>
+                    <DataGrid AutoGenerateColumns="False"
+                              ItemsSource="{Binding KeyboardShortcutsDictionary}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Command"
+                                                Binding="{Binding Key}"/>
+                            <DataGridTextColumn Header="Shortcut"
+                                                Binding="{Binding Value}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </DockPanel>
 </Window>
