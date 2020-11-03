@@ -158,6 +158,7 @@ namespace QuickSheet
 
         private void ToggleLock()
         {
+            if (CurrentCheatSheet == null) return;
             var settings = _settings.GetSettings(CurrentCheatSheet.Title);
             if (settings != null)
             {
@@ -185,10 +186,20 @@ namespace QuickSheet
                 Dispatcher.CurrentDispatcher.BeginInvoke(
                     (Action) (async () =>
                     {
-                        await Task.Delay(1000);
+                        await Task.Delay(500);
                         OpenDialog(
                             "Some quicksheet files failed to load!",
                             string.Join('\n', Errors.Select(e => e.Source + " - " + e.Message)));
+                    }));
+            } else if (_cheatSheets.Count == 0)
+            {
+                Dispatcher.CurrentDispatcher.BeginInvoke(
+                    (Action) (async () =>
+                    {
+                        await Task.Delay(500);
+                        OpenDialog(
+                            "No quicksheet files found!",
+                            "Quicksheet files are loaded from user's 'Documents\\My QuickSheets' folder.\nCheck online help (F1) for samples and file format documentation.");
                     }));
             }
         }
@@ -222,6 +233,7 @@ namespace QuickSheet
 
         private void AdjustFontSize(string param)
         {
+            if (CheatSheetViewModel.CheatSheet == null) return;
             var amount = "up".Equals(param) ? 2 : -2;
             CheatSheetViewModel.BaseFontSize += amount;
             var sheetSettings = _settings.GetSettings(CheatSheetViewModel.CheatSheet.Title);
