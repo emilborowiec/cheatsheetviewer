@@ -184,8 +184,8 @@
         <DataTemplate DataType="{x:Type cheatSheetPanel:SectionContent}">
             <Grid Style="{StaticResource SectionContentStyle}">
                 <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0"
                            Style="{StaticResource SectionNameStyle}"

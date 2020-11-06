@@ -138,39 +138,20 @@ namespace QuickSheet.CheatSheetPanel
             var sortedQueue = new Queue<Tuple<int, Size>>(boxes.OrderBy(s => s.Item2.Height));
             
             var startHeight = GetColumnHeight(boxes);
-            var desiredHeight = startHeight / columnCount;
+            var desiredHeight = boxes.Max(b => b.Item2.Height);//startHeight / columnCount;
 
             for (var i = 0; i < columnCount; i++)
             {
                 var column = new List<Tuple<int, Size>>();
-                while (column.Count == 0 || GetColumnHeight(column) - desiredHeight < 10 )
-                {
-                    if (sortedQueue.Count > 0)
-                    {
-                        var box = sortedQueue.Dequeue();
-                        column.Add(box);
-                    }
-                    else
-                    {
-                        var maxColumn = columns
-                                        .FindAll(c => c.Count > 1)
-                                        .OrderByDescending(GetColumnHeight)
-                                        .FirstOrDefault();
-                        if (maxColumn == null)
-                        {
-                            break;
-                        }
-                        var box = maxColumn.Last();
-                        maxColumn.RemoveAt(maxColumn.Count - 1);
-                        column.Add(box);
-                    }
-                }
                 columns.Add(column);
             }
 
-            if (sortedQueue.Count > 0)
+            while (sortedQueue.Count > 0)
             {
-                throw new InvalidOperationException("Algorithm failed. Leftover boxes. Gotta improve.");
+                var col = columns.OrderBy(GetColumnHeight)
+                                 .FirstOrDefault();
+                var box = sortedQueue.Dequeue();
+                col.Add(box);
             }
 
             return columns;
@@ -210,7 +191,7 @@ namespace QuickSheet.CheatSheetPanel
         private static double GetColumnHeight(List<Tuple<int, Size>> column)
         {
             if (column == null) throw new ArgumentNullException(nameof(column));
-            if (column.Count == 0) throw new ArgumentException("Value cannot be an empty collection.", nameof(column));
+            if (column.Count == 0) return 0;
             
             return column.Sum(b => b.Item2.Height);
         }
@@ -218,7 +199,7 @@ namespace QuickSheet.CheatSheetPanel
         private static double GetColumnWidth(List<Tuple<int, Size>> column)
         {
             if (column == null) throw new ArgumentNullException(nameof(column));
-            if (column.Count == 0) throw new ArgumentException("Value cannot be an empty collection.", nameof(column));
+            if (column.Count == 0) return 0;
             
             return column.Max(b => b.Item2.Width);
         }
