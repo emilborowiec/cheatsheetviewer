@@ -9,6 +9,7 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
 
+    <!-- Triggers for updating base font size -->
     <b:Interaction.Triggers>
         <b:EventTrigger EventName="Loaded">
             <b:CallMethodAction TargetObject="{Binding}"
@@ -27,6 +28,7 @@
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
 
+        <!-- Color scheme -->
         <SolidColorBrush x:Key="BackgroundLight"
                          Color="#E0E0E0" />
         <SolidColorBrush x:Key="BackgroundDark"
@@ -169,7 +171,8 @@
 
         <DataTemplate DataType="{x:Type model:Cheat}">
             <StackPanel Orientation="Vertical"
-                        Margin="0 0 12 0">
+                        Margin="0 0 12 0"
+                        ClipToBounds="True">
                 <TextBlock Style="{StaticResource CaptionStyle}"
                            Text="{Binding Caption}" />
                 <ItemsControl ItemsSource="{Binding Entries}"
@@ -177,6 +180,7 @@
             </StackPanel>
         </DataTemplate>
 
+        <!-- Section container-->
         <DataTemplate DataType="{x:Type cheatSheetPanel:SectionContent}">
             <Grid Style="{StaticResource SectionContentStyle}">
                 <Grid.RowDefinitions>
@@ -203,18 +207,21 @@
         </DataTemplate>
     </UserControl.Resources>
 
+    <!-- Root Grid -->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition />
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <!-- Title -->
         <TextBlock Grid.Row="0"
                    Style="{StaticResource TitleStyle}"
                    TextAlignment="Center"
                    Padding="4"
                    Text="{Binding CheatSheet.Title, Mode=OneWay}" />
 
+        <!-- Locked status indicator -->
         <TextBlock Grid.Row="0"
                    Visibility="{Binding Settings.FontSizeLock, Converter={StaticResource BoolToVisibilityConverter}}"
                    Style="{StaticResource StatusStyle}"
@@ -222,17 +229,19 @@
                    Padding="4"
                    Text="Locked" />
 
+        <!-- Sections container -->
         <ItemsControl Grid.Row="1"
                       Style="{StaticResource BodyStyle}"
                       ItemsSource="{Binding Sections}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel IsItemsHost="True"
-                               Orientation="Vertical">
+                    <cheatSheetPanel:CheatSheetPanel IsItemsHost="True">
+                        <!--
                         <WrapPanel.Effect>
                             <DropShadowEffect />
                         </WrapPanel.Effect>
-                    </WrapPanel>
+                    -->
+                    </cheatSheetPanel:CheatSheetPanel>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>

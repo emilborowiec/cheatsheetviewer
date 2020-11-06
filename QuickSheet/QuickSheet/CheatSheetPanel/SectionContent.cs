@@ -45,7 +45,7 @@ namespace QuickSheet.CheatSheetPanel
             return 1 + Cheats.Sum(GetLineCount);
         }
 
-        public int GetWidth()
+        public int GetWidthInCharacters()
         {
             return Math.Max(Title?.Length ?? 0, Cheats.Max(GetWidth));
         }

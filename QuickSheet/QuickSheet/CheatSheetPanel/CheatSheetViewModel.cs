@@ -194,7 +194,7 @@ namespace QuickSheet.CheatSheetPanel
 
         private int GetMaxWidth()
         {
-            return Sections?.Max(s => s.GetWidth()) ?? 0;
+            return Sections?.Max(s => s.GetWidthInCharacters()) ?? 0;
         }
     }
 }

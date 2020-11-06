@@ -51,8 +51,9 @@
         <KeyBinding Key="D9" Command="{Binding ShowSheetAtPositionCommand}" CommandParameter="9" />
     </Window.InputBindings>
 
-    <DockPanel>
-        <StackPanel DockPanel.Dock="Right"
+    <DockPanel Name="RootPanel">
+        <StackPanel Name="ButtonBar"
+                    DockPanel.Dock="Right"
                     Orientation="Horizontal">
             <StackPanel.LayoutTransform>
                 <RotateTransform Angle="90" />
@@ -61,11 +62,19 @@
             <Button Command="{Binding ToggleSheetsInfoCommand}">Sheets</Button>
             <Button Command="{Binding ToggleShortcutsInfoCommand}">Shortcuts</Button>
         </StackPanel>
-        <Grid>
-            <Grid>
+        <Grid Name="MainGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid Name="SheetContentGrid"
+                  Grid.Column="0" >
                 <cs:CheatSheetView DataContext="{Binding CheatSheetViewModel}" />
             </Grid>
-            <Grid Visibility="{Binding SheetsInfoPanelVisible, Converter={StaticResource VisibilityConverter}}">
+            <Grid Name="SheetInfoGrid"
+                  Grid.Column="1"
+                  Visibility="{Binding SheetsInfoPanelVisible, Converter={StaticResource VisibilityConverter}}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition Width="Auto" />
@@ -84,7 +93,9 @@
                     </DataGrid>
                 </StackPanel>
             </Grid>
-            <Grid Visibility="{Binding ShortcutsInfoPanelVisible, Converter={StaticResource VisibilityConverter}}">
+            <Grid Name="ShortcutsInfoGrid"
+                  Grid.Column="2"
+                  Visibility="{Binding ShortcutsInfoPanelVisible, Converter={StaticResource VisibilityConverter}}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition Width="Auto" />
