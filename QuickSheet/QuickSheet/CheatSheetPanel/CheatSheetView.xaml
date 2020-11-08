@@ -33,6 +33,22 @@
                          Color="#E0E0E0" />
         <SolidColorBrush x:Key="BackgroundDark"
                          Color="#1F1F1F" />
+        <LinearGradientBrush x:Key="BackgroundLightGradient"
+                             StartPoint="0,0"
+                             EndPoint="1,1">
+            <GradientStop Color="#C9EEFF"
+                          Offset="0.0"/>
+            <GradientStop Color="#FF9EBBFF"
+                          Offset="1.0"/>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="BackgroundDarkGradient"
+                             StartPoint="0,0"
+                             EndPoint="1,1">
+            <GradientStop Color="#FF3C3C3C"
+                          Offset="0.0"/>
+            <GradientStop Color="#1F1F1F"
+                          Offset="1.0"/>
+        </LinearGradientBrush>
         <SolidColorBrush x:Key="TextLight"
                          Color="#303030" />
         <SolidColorBrush x:Key="TextDark"
@@ -42,9 +58,21 @@
         <SolidColorBrush x:Key="PanelDark"
                          Color="#282828" />
         <SolidColorBrush x:Key="HeaderLight"
-                         Color="#696FBB" />
+                         Color="#75B6D5" />
         <SolidColorBrush x:Key="HeaderDark"
-                         Color="#3E4063" />
+                         Color="#30605B" />
+        <LinearGradientBrush x:Key="HeaderLightGradient"
+                             StartPoint="0,0" 
+                             EndPoint="0,1">
+            <GradientStop Color="#FF5BB1E4" Offset="0.0"/>
+            <GradientStop Color="#FF6780EA" Offset="1.0"/>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="HeaderDarkGradient"
+                             StartPoint="0,0" 
+                             EndPoint="0,1">
+            <GradientStop Color="#FF222A49" Offset="0.0"/>
+            <GradientStop Color="#FF0B0E18" Offset="1.0"/>
+        </LinearGradientBrush>
 
         <!-- Text color -->
         <Style TargetType="{x:Type TextBlock}"
@@ -67,12 +95,12 @@
             <Setter Property="Padding"
                     Value="8,0,8,8"/>
             <Setter Property="Background"
-                    Value="{StaticResource BackgroundLight}" />
+                    Value="{StaticResource BackgroundLightGradient}" />
             <Style.Triggers>
                 <DataTrigger Binding="{Binding DarkMode}"
                              Value="True">
                     <Setter Property="Background"
-                            Value="{StaticResource BackgroundDark}" />
+                            Value="{StaticResource BackgroundDarkGradient}" />
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -105,12 +133,12 @@
             <Setter Property="FontWeight"
                     Value="Bold" />
             <Setter Property="Background"
-                    Value="{StaticResource HeaderLight}" />
+                    Value="{StaticResource HeaderLightGradient}" />
             <Style.Triggers>
                 <DataTrigger Binding="{Binding DarkMode}"
                              Value="True">
                     <Setter Property="Background"
-                            Value="{StaticResource HeaderDark}" />
+                            Value="{StaticResource HeaderDarkGradient}" />
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -131,13 +159,13 @@
             <Setter Property="FontWeight"
                     Value="Bold" />
             <Setter Property="Background"
-                    Value="{StaticResource HeaderLight}" />
+                    Value="{StaticResource HeaderLightGradient}" />
             <Style.Triggers>
                 <DataTrigger
                     Binding="{Binding DataContext.DarkMode, RelativeSource={RelativeSource AncestorType=UserControl}}"
                     Value="True">
                     <Setter Property="Background"
-                            Value="{StaticResource HeaderDark}" />
+                            Value="{StaticResource HeaderDarkGradient}" />
                 </DataTrigger>
             </Style.Triggers>
         </Style>
