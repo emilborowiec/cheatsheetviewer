@@ -99,7 +99,7 @@
                x:Key="TitleStyle"
                BasedOn="{StaticResource TextStyle}">
             <Setter Property="FontFamily"
-                    Value="Arial" />
+                    Value="Malgun Gothic" />
             <Setter Property="FontSize"
                     Value="{Binding TitleFontSize}" />
             <Setter Property="FontWeight"
@@ -125,7 +125,7 @@
                x:Key="SectionNameStyle"
                BasedOn="{StaticResource TextStyle}">
             <Setter Property="FontFamily"
-                    Value="Arial" />
+                    Value="Malgun Gothic" />
             <Setter Property="FontSize"
                     Value="{Binding DataContext.SectionFontSize, RelativeSource={RelativeSource AncestorType=UserControl}}" />
             <Setter Property="FontWeight"
@@ -147,7 +147,7 @@
                x:Key="CaptionStyle"
                BasedOn="{StaticResource TextStyle}">
             <Setter Property="FontFamily"
-                    Value="Arial" />
+                    Value="Malgun Gothic" />
             <Setter Property="FontSize"
                     Value="{Binding DataContext.CaptionFontSize, RelativeSource={RelativeSource AncestorType=UserControl}}" />
             <Setter Property="FontWeight"
@@ -159,7 +159,7 @@
                x:Key="EntryStyle"
                BasedOn="{StaticResource TextStyle}">
             <Setter Property="FontFamily"
-                    Value="Courier New" />
+                    Value="Consolas" />
             <Setter Property="FontSize"
                     Value="{Binding DataContext.EntryFontSize, RelativeSource={RelativeSource AncestorType=UserControl}}" />
         </Style>

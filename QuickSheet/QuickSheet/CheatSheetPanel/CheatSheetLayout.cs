@@ -135,7 +135,7 @@ namespace QuickSheet.CheatSheetPanel
 
             var columns = new List<List<Tuple<int, Size>>>();
             
-            var sortedQueue = new Queue<Tuple<int, Size>>(boxes.OrderBy(s => s.Item2.Height));
+            var sortedQueue = new Queue<Tuple<int, Size>>(boxes.OrderByDescending(s => s.Item2.Height));
             
             var startHeight = GetColumnHeight(boxes);
             var desiredHeight = boxes.Max(b => b.Item2.Height);//startHeight / columnCount;
