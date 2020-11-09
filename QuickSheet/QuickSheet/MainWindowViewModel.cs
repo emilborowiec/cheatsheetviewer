@@ -57,6 +57,7 @@ namespace QuickSheet
                 if (value == _currentIndex) return;
                 _currentIndex = value;
                 _cheatSheetViewModel.SetCheatSheet(CurrentCheatSheet, _settings.GetSettings(CurrentCheatSheet.Title));
+                OnPropertyChanged(nameof(CurrentIndex));
             }
         }
 
