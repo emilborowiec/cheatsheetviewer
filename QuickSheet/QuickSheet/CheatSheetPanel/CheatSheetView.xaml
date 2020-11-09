@@ -28,52 +28,6 @@
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
 
-        <!-- Color scheme -->
-        <SolidColorBrush x:Key="BackgroundLight"
-                         Color="#E0E0E0" />
-        <SolidColorBrush x:Key="BackgroundDark"
-                         Color="#1F1F1F" />
-        <LinearGradientBrush x:Key="BackgroundLightGradient"
-                             StartPoint="0,0"
-                             EndPoint="1,1">
-            <GradientStop Color="#C9EEFF"
-                          Offset="0.0"/>
-            <GradientStop Color="#FF9EBBFF"
-                          Offset="1.0"/>
-        </LinearGradientBrush>
-        <LinearGradientBrush x:Key="BackgroundDarkGradient"
-                             StartPoint="0,0"
-                             EndPoint="1,1">
-            <GradientStop Color="#FF3C3C3C"
-                          Offset="0.0"/>
-            <GradientStop Color="#1F1F1F"
-                          Offset="1.0"/>
-        </LinearGradientBrush>
-        <SolidColorBrush x:Key="TextLight"
-                         Color="#303030" />
-        <SolidColorBrush x:Key="TextDark"
-                         Color="#CFCFCF" />
-        <SolidColorBrush x:Key="PanelLight"
-                         Color="#F9F9F9" />
-        <SolidColorBrush x:Key="PanelDark"
-                         Color="#282828" />
-        <SolidColorBrush x:Key="HeaderLight"
-                         Color="#75B6D5" />
-        <SolidColorBrush x:Key="HeaderDark"
-                         Color="#30605B" />
-        <LinearGradientBrush x:Key="HeaderLightGradient"
-                             StartPoint="0,0" 
-                             EndPoint="0,1">
-            <GradientStop Color="#FF5BB1E4" Offset="0.0"/>
-            <GradientStop Color="#FF6780EA" Offset="1.0"/>
-        </LinearGradientBrush>
-        <LinearGradientBrush x:Key="HeaderDarkGradient"
-                             StartPoint="0,0" 
-                             EndPoint="0,1">
-            <GradientStop Color="#FF222A49" Offset="0.0"/>
-            <GradientStop Color="#FF0B0E18" Offset="1.0"/>
-        </LinearGradientBrush>
-
         <!-- Text color -->
         <Style TargetType="{x:Type TextBlock}"
                x:Key="TextStyle">
@@ -226,12 +180,6 @@
                     Grid.Row="1"
                     Padding="4"
                     ItemsSource="{Binding Cheats}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel IsItemsHost="True"
-                                        Orientation="Vertical" />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
                 </ItemsControl>
             </Grid>
         </DataTemplate>

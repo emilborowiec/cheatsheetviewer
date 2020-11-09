@@ -1,9 +1,53 @@
-﻿<Application x:Class="QuickSheet.App"
+<Application x:Class="QuickSheet.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:QuickSheet"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-
+        <!-- Color scheme -->
+        <SolidColorBrush x:Key="BackgroundLight"
+                         Color="#C9EEFF" />
+        <SolidColorBrush x:Key="BackgroundDark"
+                         Color="#FF3C3C3C" />
+        <LinearGradientBrush x:Key="BackgroundLightGradient"
+                             StartPoint="0,0"
+                             EndPoint="1,1">
+            <GradientStop Color="#C9EEFF"
+                          Offset="0.0"/>
+            <GradientStop Color="#FF9EBBFF"
+                          Offset="1.0"/>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="BackgroundDarkGradient"
+                             StartPoint="0,0"
+                             EndPoint="1,1">
+            <GradientStop Color="#FF3C3C3C"
+                          Offset="0.0"/>
+            <GradientStop Color="#1F1F1F"
+                          Offset="1.0"/>
+        </LinearGradientBrush>
+        <SolidColorBrush x:Key="TextLight"
+                         Color="#303030" />
+        <SolidColorBrush x:Key="TextDark"
+                         Color="#CFCFCF" />
+        <SolidColorBrush x:Key="PanelLight"
+                         Color="#F9F9F9" />
+        <SolidColorBrush x:Key="PanelDark"
+                         Color="#282828" />
+        <SolidColorBrush x:Key="HeaderLight"
+                         Color="#FF5BB1E4" />
+        <SolidColorBrush x:Key="HeaderDark"
+                         Color="#FF222A49" />
+        <LinearGradientBrush x:Key="HeaderLightGradient"
+                             StartPoint="0,0" 
+                             EndPoint="0,1">
+            <GradientStop Color="#FF5BB1E4" Offset="0.0"/>
+            <GradientStop Color="#FF6780EA" Offset="1.0"/>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="HeaderDarkGradient"
+                             StartPoint="0,0" 
+                             EndPoint="0,1">
+            <GradientStop Color="#FF222A49" Offset="0.0"/>
+            <GradientStop Color="#FF0B0E18" Offset="1.0"/>
+        </LinearGradientBrush>
     </Application.Resources>
 </Application>

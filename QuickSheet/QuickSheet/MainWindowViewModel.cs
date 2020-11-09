@@ -1,4 +1,4 @@
-﻿#region
+#region
 
 using System;
 using System.Collections.Generic;
@@ -27,6 +27,7 @@ namespace QuickSheet
         private List<Result<CheatSheet>> _errors;
         private bool _sheetsInfoPanelVisible;
         private bool _shortcutsInfoPanelVisible;
+        private bool _darkMode;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -54,6 +55,17 @@ namespace QuickSheet
                 if (value == _currentIndex) return;
                 _currentIndex = value;
                 _cheatSheetViewModel.SetCheatSheet(CurrentCheatSheet, _settings.GetSettings(CurrentCheatSheet.Title));
+            }
+        }
+
+        public bool DarkMode
+        {
+            get => _darkMode;
+            set
+            {
+                if (value == _darkMode) return;
+                _darkMode = value;
+                OnPropertyChanged(nameof(DarkMode));
             }
         }
 
@@ -153,7 +165,8 @@ namespace QuickSheet
 
         private void ToggleDarkMode()
         {
-            CheatSheetViewModel.DarkMode = !CheatSheetViewModel.DarkMode;
+            DarkMode = !DarkMode;
+            CheatSheetViewModel.DarkMode = DarkMode;
         }
 
         private void ToggleLock()
