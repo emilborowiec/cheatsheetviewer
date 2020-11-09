@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -38,6 +39,7 @@ namespace QuickSheet
         public DelegateCommand ToggleDarkModeCommand { get; }
         public DelegateCommand ToggleLockCommand { get; }
         public DelegateCommand ToggleSheetsInfoCommand { get; }
+        public DelegateCommand OnlineHelpCommand { get; }
         public DelegateCommand ToggleShortcutsInfoCommand { get; }
         public DelegateCommand<string> ShowSheetAtPositionCommand { get; }
         public CheatSheet CurrentCheatSheet => CurrentIndex == -1 ? null : _cheatSheets[CurrentIndex];
@@ -45,7 +47,7 @@ namespace QuickSheet
         public List<Tuple<string, int>> CheatSheetPositions =>
             _cheatSheets.Select((sheet, index) => new Tuple<string, int>(sheet.Title, index + 1)).ToList();
 
-        public Dictionary<string, string> KeyboardShortcutsDictionary { get; set; }
+        public Dictionary<string, string> KeymapDictionary { get; set; }
 
         public int CurrentIndex
         {
@@ -118,25 +120,26 @@ namespace QuickSheet
             ReloadSheetsCommand = new DelegateCommand(ReloadCheatSheets);
             ToggleDarkModeCommand = new DelegateCommand(ToggleDarkMode);
             ToggleLockCommand = new DelegateCommand(ToggleLock);
+            OnlineHelpCommand = new DelegateCommand(ShowOnlineHelp);
             ToggleSheetsInfoCommand = new DelegateCommand(ToggleSheetsInfoPanel);
             ToggleShortcutsInfoCommand = new DelegateCommand(ToggleShortcutsInfoPanel);
             ShowSheetAtPositionCommand = new DelegateCommand<string>(ShowSheetAtPosition);
             LoadSettings();
             ReloadCheatSheets();
 
-            KeyboardShortcutsDictionary = new Dictionary<string, string>();
-            KeyboardShortcutsDictionary["Online help"] = "F1";
-            KeyboardShortcutsDictionary["Toggle loaded sheets info panel"] = "F2";
-            KeyboardShortcutsDictionary["Toggle keyboard shortcuts panel"] = "F10";
-            KeyboardShortcutsDictionary["Next loaded sheet"] = "Right";
-            KeyboardShortcutsDictionary["Previous loaded sheet"] = "Left";
-            KeyboardShortcutsDictionary["View loaded sheet"] = "1-9";
-            KeyboardShortcutsDictionary["Reload sheets"] = "R";
-            KeyboardShortcutsDictionary["Increase font size and lock"] = "Up";
-            KeyboardShortcutsDictionary["Decrease font size and lock"] = "Down";
-            KeyboardShortcutsDictionary["Toggle font size lock"] = "L";
-            KeyboardShortcutsDictionary["Toggle dark mode"] = "M";
-            KeyboardShortcutsDictionary["Close dialog / program"] = "Esc";
+            KeymapDictionary = new Dictionary<string, string>();
+            KeymapDictionary["Online help"] = "F1";
+            KeymapDictionary["Toggle keymap panel"] = "F2";
+            KeymapDictionary["Toggle sheets index panel"] = "F3";
+            KeymapDictionary["Next loaded sheet"] = "Right";
+            KeymapDictionary["Previous loaded sheet"] = "Left";
+            KeymapDictionary["View loaded sheet"] = "1-9";
+            KeymapDictionary["Reload sheets"] = "R";
+            KeymapDictionary["Increase font size and lock"] = "Up";
+            KeymapDictionary["Decrease font size and lock"] = "Down";
+            KeymapDictionary["Toggle font size lock"] = "L";
+            KeymapDictionary["Toggle dark mode"] = "M";
+            KeymapDictionary["Close dialog / program"] = "Esc";
         }
 
         private void ToggleSheetsInfoPanel()
@@ -241,6 +244,23 @@ namespace QuickSheet
                 {
                     CurrentIndex = 0;
                 }
+            }
+        }
+
+        private void ShowOnlineHelp()
+        {
+            var myProcess = new Process();
+
+            try
+            {
+                // true is the default, but it is important not to set it to false
+                myProcess.StartInfo.UseShellExecute = true;
+                myProcess.StartInfo.FileName = "http://www.emilborowiec.com/quicksheet";
+                myProcess.Start();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
             }
         }
 

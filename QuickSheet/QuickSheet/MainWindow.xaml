@@ -33,6 +33,8 @@
                TargetType="TextBlock">
             <Setter Property="Foreground"
                     Value="{StaticResource TextLight}" />
+            <Setter Property="LineHeight"
+                    Value="20"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding DataContext.DarkMode, RelativeSource={RelativeSource AncestorType=Window}}"
                              Value="True">
@@ -48,12 +50,12 @@
             <Setter Property="FontWeight" Value="Bold" />
         </Style>
         <Style x:Key="ToolBarStyle"
-               TargetType="StackPanel">
+               TargetType="Grid">
             <Setter Property="Background"
                     Value="Black"/>
         </Style>
         <Style x:Key="ButtonStyle"
-               TargetType="Button">
+               TargetType="Control">
             <Setter Property="Padding"
                     Value="8"/>
             <Setter Property="FontFamily"
@@ -88,8 +90,9 @@
         <KeyBinding Key="r" Command="{Binding ReloadSheetsCommand}" />
         <KeyBinding Key="m" Command="{Binding ToggleDarkModeCommand}" />
         <KeyBinding Key="l" Command="{Binding ToggleLockCommand}" />
-        <KeyBinding Key="F2" Command="{Binding ToggleSheetsInfoCommand}" />
-        <KeyBinding Key="F10" Command="{Binding ToggleShortcutsInfoCommand}" />
+        <KeyBinding Key="F1" Command="{Binding OnlineHelpCommand}" />
+        <KeyBinding Key="F2" Command="{Binding ToggleShortcutsInfoCommand}" />
+        <KeyBinding Key="F3" Command="{Binding ToggleSheetsInfoCommand}" />
         <KeyBinding Key="D1" Command="{Binding ShowSheetAtPositionCommand}" CommandParameter="1" />
         <KeyBinding Key="D2" Command="{Binding ShowSheetAtPositionCommand}" CommandParameter="2" />
         <KeyBinding Key="D3" Command="{Binding ShowSheetAtPositionCommand}" CommandParameter="3" />
@@ -102,19 +105,29 @@
     </Window.InputBindings>
 
     <DockPanel Name="RootPanel">
-        <StackPanel Name="ButtonBar"
+        <Grid Name="ButtonBar"
                     DockPanel.Dock="Right"
-                    Orientation="Horizontal"
                     Style="{StaticResource ToolBarStyle}">
-            <StackPanel.LayoutTransform>
+            <Grid.LayoutTransform>
                 <RotateTransform Angle="90" />
-            </StackPanel.LayoutTransform>
+            </Grid.LayoutTransform>
 
-            <Button Command="{Binding ToggleSheetsInfoCommand}"
-                    Style="{StaticResource ButtonStyle}">Sheets</Button>
-            <Button Command="{Binding ToggleShortcutsInfoCommand}"
-                    Style="{StaticResource ButtonStyle}">Shortcuts</Button>
-        </StackPanel>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Command="{Binding OnlineHelpCommand}"
+                          Style="{StaticResource ButtonStyle}"
+                          Grid.Column="0">Online Help (F1)</Button>
+            <ToggleButton IsChecked="{Binding ShortcutsInfoPanelVisible}"
+                          Style="{StaticResource ButtonStyle}"
+                          Grid.Column="1">Keymap (F2)</ToggleButton>
+            <ToggleButton IsChecked="{Binding SheetsInfoPanelVisible}"
+                          Style="{StaticResource ButtonStyle}"
+                          Grid.Column="2">Index (F3)</ToggleButton>
+        </Grid>
         <Grid Name="MainGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -134,7 +147,8 @@
                 </Grid.ColumnDefinitions>
                 <Border Grid.Column="1">
                     <StackPanel Style="{StaticResource InfoPanelStyle}">
-                        <TextBlock Style="{StaticResource InfoPanelCaptionStyle}">Sheets</TextBlock>
+                        <TextBlock Style="{StaticResource InfoPanelCaptionStyle}">Sheet Index:</TextBlock>
+                        <Separator/>
                         <ItemsControl ItemsSource="{Binding CheatSheetPositions}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
@@ -167,8 +181,9 @@
                 </Grid.ColumnDefinitions>
                 <Border Grid.Column="1">
                     <StackPanel Style="{StaticResource InfoPanelStyle}">
-                        <TextBlock Style="{StaticResource InfoPanelCaptionStyle}">Keyboard Shortcuts:</TextBlock>
-                        <ItemsControl ItemsSource="{Binding KeyboardShortcutsDictionary}">
+                        <TextBlock Style="{StaticResource InfoPanelCaptionStyle}">Keymap:</TextBlock>
+                        <Separator/>
+                        <ItemsControl ItemsSource="{Binding KeymapDictionary}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Grid>
