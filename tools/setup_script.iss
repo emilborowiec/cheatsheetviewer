@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "QuickSheet"
-#define MyAppVersion "0.1"
+#define MyAppVersion "0.2"
 #define MyAppPublisher "Emil Borowiec"
 #define MyAppURL "http://www.emilborowiec.com/quicksheet"
 #define MyAppExeName "QuickSheet.exe"
@@ -35,7 +35,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Files]
 Source: "..\QuickSheet\QuickSheet\bin\Release\netcoreapp3.1\publish\*"; DestDir: "{app}" 
-Source: "..\samples\git.qsheet"; DestDir: "{userdocs}\My QuickSheets"; Flags: ignoreversion onlyifdoesntexist 
+Source: "..\samples\*.qsheet"; DestDir: "{userdocs}\My QuickSheets"; Flags: ignoreversion onlyifdoesntexist 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
