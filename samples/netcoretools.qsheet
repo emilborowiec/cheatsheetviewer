@@ -1,2 +1,64 @@
 # .NET Core Tools Cheat Sheet
 
+
+
+## Creating new projects and solutions
+
+### Show list of installed templates
+dotnet new -l
+
+### Common templates
+sln        # solution
+console    # console app
+classlib   # library
+xunit      # test project
+mvc        # mvc web app
+webapp     # razor web app
+gitignore  # gitignore file
+
+### Create new project or solution
+dotnet new <template>  # with name of current dir
+dotnet new <template> -o <dir>  # with name of given dir
+dotnet new <template> -n <name>  # with specified name
+
+
+
+## Manage solution
+
+### List projects in solution
+dotnet sln list
+
+### Add project
+dotnet add <path>
+
+### Remove project
+dotnet remove <path>
+
+
+
+## Manage project
+
+### Add or remove reference to other project
+dotnet add <project> reference <dependency>
+dotnet remove <project> reference <dependency>
+
+### Add or remove nuget package
+dotnet add <project> package <package_name>
+dotnet remove <project> package <package_name>
+
+
+
+## Manage additional tool installations
+
+### Show installed tools
+dotnet tool list
+dotnet tool list -g  # global
+
+### Install, uninstall or update tool
+dotnet tool install <package>
+dotnet tool install <package> -g  # global
+dotnet tool uninstall <package>
+dotnet tool update <package>
+
+### Common tools
+dotnet-ef

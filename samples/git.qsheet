@@ -1,51 +1,58 @@
 # Git Cheat Sheet
 
-## Git Concepts
 
-### Commit
-A node on history tree of git repo
-AKA: Revision
 
-### Branch
-Line of commits on history tree
-Also, dynamic reference to branch tip commit
+## Creating local repository
 
-### Remote-tracking branch
-Local branch, named <remote>/<branch>
-Keeps track of state of <branch> on <remote>
-Updated with git fetch command
+### Create repository
+git init
+git init <dir>
 
-### Head
-Dynamic reference to checked out branch or commit
-Updated by checkout and commit commands
+### Clone repository
+git clone <sshuser>@<host>:<path/to/repository>
+git clone https://<host>/<path/to/repository>
 
-### Tag
-Static reference to particular commit 
- 
-### Working Directory
-Directory with the files you work on
-Contains HEAD + local changes
 
-### Index
-Directory with the files you want to commit
-AKA: Staging area, Staged files, Cache
 
-## Config
+## Inspecting repository
+
+### Show status
+git status
+
+### Show last commits
+git log
+git log -n 3  # limit 3
+git log --author="name"
+git log -- <path>
+git log --oneline
+git log --graph --oneline --decorate --all
+
+### Show files changed in commit
+git show <commit>
+git show --pretty="" --name-only <commit>
+
+### Show diff
+git diff           # work vs stage
+git diff --staged  # stage vs head
+git diff HEAD      # work vs head
+git diff -- <path> # specified file
+
+
+
+## Configuration
 
 ### Set config property
 git config <property> <value>
+git config --global <property> <value>
 
-### Get config property
+### View config
 git config --get <property>
-
-### Get all config with origin
+git config --global --get <property>
 git config --list --show-origin
-
-### Global config
-git config --global ...
 
 ### Open config in editor
 git config --edit
+git config --edit --global
 
 ### Common properties
 user.name
@@ -53,97 +60,104 @@ user.email
 core.autocrlf
 core.editor
 
-## Repository
 
-### Initialize repo
-git init
-git init <dir>
 
-### Clone repo
-git clone git@github.com:username/repo.git
-git clone https://github.com/username/repo.git
+## Manage local branches
 
-### Get Status
-git status
-
-### Show commit history
-git log
-
-### Show unstaged changes
-git diff
-
-## Branches
-
-### Show local branches
+### Show branches
 git branch
-
-### Show local and remote branches
-git branch -av
-
-### Switch branch
-git checkout <branch>
+git branch -v # show last commit
+git branch -a # local and remote
 
 ### Create new branch
 git branch <branch>
+git checkout -b <branch>  # create and switch
+
+### Switch branch
+git switch <branch>
+git checkout <branch>
 
 ### Delete local branch
 git branch -d <branch>
 
+
+
+## Integrate branches
+
+### Bring changes onto current branch
+git merge <branch>
+
+### Rebase current branch starting point
+git rebase <branch>
+git rebase -i <branch>  # interactive
+
+
+
+## Working with remotes
+
+### Show remotes
+git remote     ## just names
+git remote -v  ## with urls
+
+### Change remote url
+git remote set-url <remote> <url>
+
+### Get changes from remotes
+git fetch <remote>  ## update remote-tracking branches
+git fetch           ## from origin
+git pull <remote>   ## upate and merge with local
+git pull --rebase <remote>  ## update and rebase local
+
 ### Delete branch on remote repo
 git push <remote> -D <branch>
 
-### Create commit with changes from another branch
-git merge <branch>
-
-### Put current branch on top of another
-git rebase <branch>
-
-## Remotes
-
-### Show remote urls
-git remote -v
-
-### Change origin url
-git remote set-url <url>
-
-### Update remote-tracking branches
-git fetch <remote>
-
-### Update and merge
-git pull <remote>
-
-### Update and rebase
-git pull --rebase <remote>
-
 ### Send local refs to remote repo
-git push <remote>
+git push <remote> <branch>
+git push <remote>  ## current branch
+git push ## current branch to origin
+git push --all  ## send branches and tags
+git push --tags ## send just tags
 
-## Making changes
 
-### Add all changed files to index
+
+## Committing changes
+
+### Stage all new and changed files
 git add .
 
-### Commit staged files
-git commit -m "message"
+### Commit
+git commit -m "message"     ## only staged files
+git commit -a -m "message"  ## tracked files
 
-### Commit all tracked files
-git commit -a -m "message"
+
+
+## Working with temporary stash
+
+### Stash uncommitted changes
+git stash
+git stash -u  ## include untracked files
+git stash save "message"
+
+### Reapply stashed changes
+git stash pop
+
+### Show stash contents
+git stash list
+
+### Discard stashed changes
+git stash clear
+git stash drop <stash>  # ex. stash@{1}
+
+
 
 ## Undoing uncommitted changes
 
-### Stash changes (save for later)
-git stash
-
-### Pop stash
-git stash pop
-
-### Discard all uncommitted changes
-git reset --hard
-
-### Discard changes done to a file
+### Restore files in working tree
+git restore <file>
 git checkout HEAD -- <path>
 
 ### Unstage file
+git restore --staged <path>
 git reset -- <path>
 
 ### Commit-level reset modes
@@ -152,6 +166,8 @@ git reset -- <path>
 hard is useful for discarding changes
 --soft: only moves moves branch head
 soft is useful for squashing commits
+
+
 
 ## Undoing committed changes
 

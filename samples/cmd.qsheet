@@ -1,0 +1,114 @@
+# Windows Command Prompt Cheat Sheet
+
+
+
+## Working with console
+
+### Close window
+exit
+
+### Clear screen
+cls
+
+### Print contents of text file
+type <file>
+
+### Show page by page
+more <files>   ## blank separated list
+more < <path>  ## using redirection
+<command> | more  ## using output piping
+
+### Sort output
+sort
+
+### Pipe output to other command
+<cmd> | <cmd>
+
+### Show environment variables
+set
+set <prefix>
+
+### Redirect ouput to file
+> <file>  # overwrite
+>> <file> # append
+
+### Take input from file or command
+<cmd_input_required> < <file_or_command> 
+
+### Change color
+color <background><foreground>
+
+### Console color codes
+0 - Black
+1 - Blue
+2 - Green
+3 - Aqua
+4 - Red
+5 - Purple
+6 - Yellow
+7 - White
+8 - Gray
+9 - Bright Blue
+A - Bright Green
+B - Bright Aqua
+C - Bright Red
+D - Bright Purple
+E - Bright Yellow
+F - Bright White
+
+
+
+## Moving around
+
+### Windows paths
+c:\absolute\path\on\drive\c
+\absolute\path\on\current\drive
+relative\path\on\current\drive
+c:relative\path\on\current\drive  # seldom useful
+
+### Change current directory
+cd <dir>
+pushd <dir>  # store cd, then change
+popd         # change to stored dir
+
+### Change current drive
+<drive>:
+
+### List contents of directory
+dir        # current directory
+dir <dir>  # specified directory
+dir /ah    # include hidden files
+
+
+
+## Manage directories
+
+### Create directory
+mkdir <directory>
+
+### Create symbolic link to directory
+mklink /D <link> <target>
+
+### Delete directory tree
+rmdir /S /Q <dir>
+
+### Rename directory
+move <dir> <newdir>
+
+
+
+## Manage files
+
+### Create new text file
+type <content> > <file>
+type nul > <file>  # empty file
+notepad <file>  # opens in notepad
+
+### Delete file
+del <file>
+
+### Move file
+move <file> <dir>
+
+### Rename file
+ren <file> <newfile>
