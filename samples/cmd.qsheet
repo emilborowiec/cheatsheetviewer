@@ -35,7 +35,11 @@ set <prefix>
 ### Take input from file or command
 <cmd_input_required> < <file_or_command> 
 
-### Change color
+
+
+## Console colors
+
+### Change colors
 color <background><foreground>
 
 ### Console color codes
