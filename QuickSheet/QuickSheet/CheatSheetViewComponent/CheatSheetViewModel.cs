@@ -1,4 +1,4 @@
-﻿#region
+#region
 
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,10 +11,12 @@ using System.Windows.Media;
 using QuickSheet.Annotations;
 using QuickSheet.Model;
 using QuickSheet.Services;
+using Color = System.Windows.Media.Color;
+using Point = System.Windows.Point;
 
 #endregion
 
-namespace QuickSheet.CheatSheetPanel
+namespace QuickSheet.CheatSheetViewComponent
 {
     public class CheatSheetViewModel : INotifyPropertyChanged
     {
@@ -70,6 +72,7 @@ namespace QuickSheet.CheatSheetPanel
                 {
                     _cheatSheet = value;
                     Sections = CreateViewSections(_cheatSheet);
+                    UpdateSectionBackgrounds();
                     OnPropertyChanged(nameof(CheatSheet));
                     OnPropertyChanged(nameof(Sections));
                     UpdateBaseFontSize();
@@ -86,6 +89,7 @@ namespace QuickSheet.CheatSheetPanel
                 if (value != _darkMode)
                 {
                     _darkMode = value;
+                    UpdateSectionBackgrounds();
                     OnPropertyChanged(nameof(DarkMode));
                 }
             }
@@ -109,11 +113,17 @@ namespace QuickSheet.CheatSheetPanel
             var viewSections = new List<SectionContent>();
             if (cheatSheet.Cheats.Count > 0)
             {
-                viewSections.Add(new SectionContent(cheatSheet.Cheats));
+                var sectionContent = new SectionContent(cheatSheet.Cheats);
+                viewSections.Add(sectionContent);
             }
 
             viewSections.AddRange(
-                cheatSheet.Sections.Select(section => new SectionContent(section.Name, section.Cheats)));
+                cheatSheet.Sections.Select((section, index) =>
+                {
+                    var sectionContent =
+                        new SectionContent(section.Name, section.Cheats);
+                    return sectionContent;
+                }));
 
             return viewSections;
         }
@@ -196,5 +206,36 @@ namespace QuickSheet.CheatSheetPanel
         {
             return Sections?.Max(s => s.GetWidthInCharacters()) ?? 0;
         }
+
+        private void UpdateSectionBackgrounds()
+        {
+            for (var i = 0; i < Sections.Count; i++)
+            {
+                var section = Sections[i];
+                section.BackgroundBrush = GetIndexedSectionBrush(i);
+            }
+        }
+        
+        private Brush GetIndexedSectionBrush(int index)
+        {
+            var baseColor = Colors.Aqua;
+            var colors = SectionColors.All;
+            if (index >= 0 && colors.Length > index)
+            {
+                baseColor = colors[index];
+            }
+            if (_darkMode)
+            {
+                baseColor = Darken(baseColor, 0.4);
+            }
+            var darker = Darken(baseColor, 0.8);
+            return new LinearGradientBrush(baseColor, darker, new Point(0, 0), new Point(1, 1));
+        }
+
+        private static Color Darken(Color color, double d)
+        {
+            return Color.FromRgb((byte) (color.R * d), (byte) (color.G * d), (byte) (color.B * d));
+        }
+
     }
 }

@@ -4,7 +4,7 @@ using System.Windows.Controls;
 
 #endregion
 
-namespace QuickSheet.CheatSheetPanel
+namespace QuickSheet.CheatSheetViewComponent
 {
     public partial class CheatSheetView : UserControl
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace QuickSheet.CheatSheetPanel
+namespace QuickSheet.CheatSheetViewComponent
 {
     public class CheatSheetPanel : Panel
     {

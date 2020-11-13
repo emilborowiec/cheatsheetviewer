@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 
-namespace QuickSheet.CheatSheetPanel
+namespace QuickSheet.CheatSheetViewComponent
 {
     /// <summary>
     /// Algorithm for arranging a set of boxes.

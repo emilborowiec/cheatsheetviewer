@@ -1,22 +1,35 @@
-﻿#region
+#region
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Windows.Media;
+using QuickSheet.Annotations;
 using QuickSheet.Model;
 
 #endregion
 
-namespace QuickSheet.CheatSheetPanel
+namespace QuickSheet.CheatSheetViewComponent
 {
-    public class SectionContent
+    public class SectionContent : INotifyPropertyChanged
     {
+        private Brush _backgroundBrush;
+        
         public bool IsRootSection { get; }
         public bool IsNotRootSection => !IsRootSection;
         public string Title { get; }
         public List<Cheat> Cheats { get; }
-        public Color BackgroundColor { get; set; }
+        public Brush BackgroundBrush
+        {
+            get => _backgroundBrush;
+            set
+            {
+                _backgroundBrush = value;
+                OnPropertyChanged(nameof(BackgroundBrush));
+            } 
+        }
 
         public SectionContent(List<Cheat> cheats)
         {
@@ -48,6 +61,14 @@ namespace QuickSheet.CheatSheetPanel
         public int GetWidthInCharacters()
         {
             return Math.Max(Title?.Length ?? 0, Cheats.Max(GetWidth));
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

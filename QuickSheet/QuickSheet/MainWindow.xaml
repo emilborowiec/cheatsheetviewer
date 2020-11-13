@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QuickSheet"
-        xmlns:cs="clr-namespace:QuickSheet.CheatSheetPanel"
+        xmlns:cheatSheetViewComponent="clr-namespace:QuickSheet.CheatSheetViewComponent"
         mc:Ignorable="d"
         Title="QuickSheet" Height="450" Width="800"
         WindowState="Maximized"
@@ -130,7 +130,7 @@
             </Grid.ColumnDefinitions>
             <Grid Name="SheetContentGrid"
                   Grid.Column="0" >
-                <cs:CheatSheetView DataContext="{Binding CheatSheetViewModel}" />
+                <cheatSheetViewComponent:CheatSheetView DataContext="{Binding CheatSheetViewModel}" />
             </Grid>
             <Grid Name="SheetInfoGrid"
                   Grid.Column="1"

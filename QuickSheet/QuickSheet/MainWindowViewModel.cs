@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 using QuickSheet.Annotations;
-using QuickSheet.CheatSheetPanel;
+using QuickSheet.CheatSheetViewComponent;
 using QuickSheet.Dialog;
 using QuickSheet.Model;
 using QuickSheet.Services;
