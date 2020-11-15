@@ -1,0 +1,180 @@
+﻿# Windows 10 Keyboard Shortcuts
+
+
+
+## Managing application windows
+
+### Close window
+Alt + F4
+
+### Switch between opened apps
+Alt + Tab
+
+### Show all opened apps
+Ctrl + Alt + Tab
+### Toggle display Desktop
+Win + D
+Win + ,  # peek
+
+### Minimize all windows
+Win + M
+Win + Shift + M  # restore
+
+### Manipulate window
+Win + Up       # Maximize
+Win + Down     # Unmaximize or minimize
+Win + Left     # Take left part of screen
+Win + Right    # Take right part of screen
+Win + Shift + Arrow keys
+
+### Toggle window shortcut menu
+Alt + Spacebar
+
+
+
+## General use shortcuts
+
+### Select all
+Ctrl + A
+
+### Delete item
+Delete
+Ctrl + D
+
+### Copy and Paste
+Ctrl + X        # Cut
+Ctrl + C        # Copy
+Ctrl + Insert   # Copy
+Ctrl + V        # Paste
+Shift + Insert  # Paste
+
+### Rename
+F2
+
+### Refresh active window
+F5
+Ctrl + R
+
+### Cycle focus in active window
+Tab
+F6
+
+### Invoke app commands with keyboard
+Alt + <underlined letter>  # invokes command
+Hold Alt  # in some apps toggles command focus
+
+### Display drop-down menu
+Shift + F10
+
+### Go back and forward 
+Alt + Left
+Alt + Right
+
+
+## File explorer shortcuts
+
+### Focus address bar
+Alt + D
+
+### Show list of addresses
+F4
+
+### Focus search box
+Alt + E
+Alt + F
+
+### Open new window
+Ctrl + N
+
+### Close active window
+Ctrl + W
+
+### Create new folder
+Ctrl + Shift + N
+
+### Navigation
+Ctrl + Up       # To parent folder
+Ctrl + Left     # Previous location
+Backspace       # Backspace
+Ctrl + Right    # Next location
+
+### Close docuemnt or tab
+Ctrl + F4
+
+
+
+## Text editing
+
+### Move cursor word by word
+Ctrl + Left
+Ctrl + Right
+
+### Move cursor to paragraph
+Ctrl + Up
+Ctrl + Down
+
+### Undo and Redo
+Ctrl + Z        # Undo
+Ctrl + Y        # Redo
+
+### Find and Replace
+Ctrl + F        # Find
+F3              # Find
+Ctrl + H        # Replace
+
+
+
+## System features
+
+### Lock PC
+Win + L
+
+### Toggle action center
+Win + A
+
+### Focus notification area
+Win + B
+
+### Speak to Cortana
+Win + C
+
+### Dictate
+Win + H
+
+### Open settings
+Win + I
+
+### Toggle time and date view
+Win + Alt + D
+
+### Open Run dialog box
+Win + R
+
+### Open search
+Win + S
+
+### Take screen snip
+Win + Shift + S
+
+### Open clipboard
+Win + V
+
+### Select emoji
+Win + .
+
+### Open or switch to app on taskbar
+Win + <position number>
+
+### Switch keyboard layout
+Ctrl + Shift
+
+
+
+## Start menu
+
+### Open start menu
+Win
+Ctrl + Esc
+
+### Resize start menu when opened
+Ctrl + Arrow keys

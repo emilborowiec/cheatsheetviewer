@@ -29,11 +29,11 @@ set
 set <prefix>
 
 ### Redirect ouput to file
-> <file>  # overwrite
->> <file> # append
+>  # overwrite
+>> # append
 
 ### Take input from file or command
-<cmd_input_required> < <file_or_command> 
+<
 
 
 

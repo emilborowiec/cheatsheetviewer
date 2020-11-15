@@ -2,10 +2,11 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "QuickSheet"
-#define MyAppVersion "0.2"
+#define MyAppVersion "1.0"
 #define MyAppPublisher "Emil Borowiec"
 #define MyAppURL "http://www.emilborowiec.com/quicksheet"
 #define MyAppExeName "QuickSheet.exe"
+#define MyAppIcoName "quicksheet.ico"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
@@ -40,8 +41,7 @@ Source: "..\samples\*.qsheet"; DestDir: "{userdocs}\My QuickSheets"; Flags: igno
 
 [Icons]
 Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
-Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
+Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "\{#MyAppIcoName}" Tasks: desktopicon
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
-

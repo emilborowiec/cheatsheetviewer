@@ -1,0 +1,99 @@
+﻿# Web Browser Keyboard Shortcuts
+
+## Tabs
+
+### Switch tab
+Ctrl + <1-8>  # counting from left
+Ctrl + 9      # last tab
+Ctrl + Tab    # next tab
+Ctrl + Shift + Tab  # previous tab
+
+### Close tab
+Ctrl + W
+Ctrl + F4
+Mouse middle button
+
+### Reopen closed tab
+Ctrl + Shift + T
+
+### Open new tab
+Ctrl + T
+
+### Open tab in new window
+Ctrl + N
+
+
+
+## Links
+
+### Open in background tab
+Ctrl + Click
+
+### Open in new window
+Shift + Click
+
+### Open in new tab
+Ctrl + Shift + Click
+
+
+
+## Navigation
+
+### Back
+Alt + Left
+Backspace
+
+### Forward
+Alt + Right
+Shift + Backspace
+
+### Reload
+F5
+
+### Reload with cache
+Ctrl + F5
+
+### Stop page load
+Esc
+
+### Open home page
+Alt + Home
+
+
+
+## Address bar
+
+### Focus address bar
+F6
+Ctrl + L
+Alt + D
+
+### Add www. and .com
+Ctrl + Enter
+
+### Go to location in new tab
+Alt + Enter
+
+
+
+## History and Bookmarks
+
+### Open history
+Ctrl + H
+
+### Open downloads
+Ctrl + J
+
+### Bookmark current website
+Ctrl + D
+
+### Clear browsing history
+Ctrl + Shift + Del
+
+
+
+## Development
+
+### Open developer tools
+F12
+

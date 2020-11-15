@@ -12,9 +12,6 @@
 
     <ItemGroup>
       <None Remove="icon.ico" />
-      <Resource Include="icon.ico">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Resource>
       <None Update="quicksheet.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>

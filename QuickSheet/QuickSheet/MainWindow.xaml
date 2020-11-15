@@ -9,7 +9,7 @@
         Title="QuickSheet" Height="450" Width="800"
         WindowState="Maximized"
         WindowStyle="None"
-        Icon="icon.ico">
+        Icon="quicksheet.ico">
 
     <Window.DataContext>
         <local:MainWindowViewModel />
