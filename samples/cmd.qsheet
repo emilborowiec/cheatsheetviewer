@@ -116,3 +116,35 @@ move <file> <dir>
 
 ### Rename file
 ren <file> <newfile>
+
+
+
+## Basic scripting
+
+### Silence command display
+@echo off
+
+### Comment code
+REM This is a comment
+
+### Set and read variables
+SET variable=value  # assign value
+%variable%          # read value
+
+### Add command line arguments
+%0      # evaluates to name of the script file
+%<1-9>  # evaluates to first to ninth argument
+
+### Conditionals
+IF <condition> (some commands) ELSE (some commands)
+IF EXISTS <file> ECHO found
+IF NOT EXISTS <file> ECHO not found
+IF "%var%"=="" ECHO var not defined
+IF NOT DEFINED var ECHO var not defined
+IF /I "%var%" EQU "1" ECHO equality with 1
+IF /I "%var%" NEQ "0" ECHO inequality with 0
+IF /I "%var%" GEQ "1" ECHO greater than or equal to 1
+IF /I "%var%" LEQ "1" ECHO less than or equal to 1
+
+### React on errors
+IF %ERRORLEVEL% NEQ 0 (REM do something here to address the error)

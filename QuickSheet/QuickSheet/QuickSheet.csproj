@@ -4,6 +4,10 @@
         <OutputType>WinExe</OutputType>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <UseWPF>true</UseWPF>
+        <Company>Emil Borowiec</Company>
+        <AssemblyVersion>1.0</AssemblyVersion>
+        <FileVersion>1.0</FileVersion>
+        <ApplicationIcon>quicksheet.ico</ApplicationIcon>
     </PropertyGroup>
 
     <ItemGroup>
@@ -11,14 +15,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="icon.ico" />
-      <None Update="quicksheet.png">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="quicksheet_small.png">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Remove="Resources\help.qsheet" />
+      <Content Include="quicksheet.ico">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
 </Project>
