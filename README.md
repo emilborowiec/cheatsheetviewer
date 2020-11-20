@@ -1,51 +1,21 @@
 # QuickSheet
 
-QuickSheet is a WPF application for displaying and easily switching between cheat sheets.
+QuickSheet is a lightweight and handy cheat sheet viewer for Windows Desktop. 
 
-Main features:
-- Simple, textual file format for ease of writing your own cheat sheets.
-- Automatic font size and layout calibration to optimal use of screen size.
-- Operated mostly from keyboard
+I like having many cheat sheets available when I work, so the app was created to address my own needs. It is possible that others might also find it useful and I will be very happy to add more features on request whenever I have time. So if you have some cool ideas or found some issues, feel free to report it here on GitHub.
 
-## Key commands
-- Esc - closes popup dialogs or closes the application
-- Left and Right arrow keys - switch to previous and next loaded sheet correspondingly
-### TODO
-- Going to specific sheet with number keys
-- Manually increasing/decrasing font size with Up/Down arrow keys
-- Dark mode
-- Alternate formatting with tables
-- Automatic reloading of quick sheet files
-- User specified source directory
-- Help page or default help cheat sheet
+### Getting started
 
-## Quick Sheet file format
+If you'd like to give QuickSheet a go, the best way to start is to download installer from the project page [here](www.emilborowiec.com/quicksheet). The installer will get you started with few sample quicksheet files you can modify or use as markup reference. On the page you'll also find keyboard shortcuts, features, explanation of markup and more downloadable samples.
 
-Here's the example:
+### Building it
 
-```
-# Quick Sheet Cheat Sheet
+To build QuickSheet you will need .NET Core SDK 3.1.x.
 
-### Sheet title
-First line must contain sheet title
-It must begin with # and title goes after single whitespace
+### Contributing
 
-### Cheat structure
-Cheat is composed of Caption and Entries
-Caption starts with ### and whitespace
-Entries are lines below caption and before another caption or section
+The project is written in C#, based on WPF and the code follows MVVM approach. If you'd like to contribute go ahead and drop me a message.
 
-## Section on sections
+### Features, instructions, downloads...
 
-### Section name
-Sections start with ## whitespace and then section name
-
-### Cheats in section
-Every cheat after section start belongs to that section
-Until next section starts
-
-### Root section
-Cheats can be added under sheet title and before first section start
-Those cheats are considered to be in group section
-Group section is rendered without a name because it doesn't have any
-```
+[QuickSheet project page](www.emilborowiec.com/quicksheet)
