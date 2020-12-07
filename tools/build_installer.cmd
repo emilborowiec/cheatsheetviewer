@@ -1,7 +1,7 @@
 @echo off
 
 echo Publish in Release configuration
-dotnet publish -c Release ..\QuickSheet\QuickSheet\QuickSheet.csproj
+dotnet publish -c Release ..\CheatSheetViewer\CheatSheetViewer\CheatSheetViewer.csproj
 
 if %errorlevel% neq 0 (
     echo Publish failed. Exiting...

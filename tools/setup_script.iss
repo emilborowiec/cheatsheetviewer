@@ -23,7 +23,7 @@ DefaultDirName={userpf}\{#MyAppName}
 DisableProgramGroupPage=yes
 ; Remove the following line to run in administrative install mode (install for all users.)
 PrivilegesRequired=lowest
-OutputBaseFilename=QuickSheetSetup
+OutputBaseFilename=CheatSheetViewerSetup
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -35,8 +35,8 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "..\QuickSheet\QuickSheet\bin\Release\netcoreapp3.1\publish\*"; DestDir: "{app}" 
-Source: "..\samples\*.qsheet"; DestDir: "{userdocs}\My QuickSheets"; Flags: ignoreversion onlyifdoesntexist 
+Source: "..\CheatSheetViewer\CheatSheetViewer\bin\Release\netcoreapp3.1\publish\*"; DestDir: "{app}" 
+Source: "..\samples\*.csmup"; DestDir: "{userdocs}\My CheatSheets"; Flags: ignoreversion onlyifdoesntexist 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
