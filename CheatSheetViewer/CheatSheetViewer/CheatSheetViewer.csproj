@@ -15,4 +15,11 @@
       <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="cheatsheetviewer.ico" />
+      <Content Include="cheatsheetviewer.ico">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
 </Project>
